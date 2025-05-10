@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// enum Role {
+//   USER
+//   ADMIN
+// }
+
+enum TradeType {
+  YES
+  NO
+}
+
+enum OrderType {
+  BUY
+  SELL
+}
+
+enum OrderStatus {
+  PENDING
+  FULFILLED
+  CANCELLED
+}
+
+enum TransactionType {
+  DEPOSIT
+  WITHDRAWAL
+  BET
+  WIN
+  LOSS
+}
+
+model User {
+  id            Int            @id @default(autoincrement())
+  username      String         @unique
+  email         String         @unique
+  password      String
+  balance       Float          @default(1000)
+  predictions   Prediction[]
+  trades        Trade[]
+  transactions  Transaction[]
+  notifications Notification[]
+}
+
+model Trade {
+  id          Int          @id @default(autoincrement())
+  tradeTitle  String
+  price       Float
+  quantity    Int
+  tradeType   TradeType
+  userId      Int
+  user        User         @relation(fields: [userId], references: [id])
+  orderBooks  OrderBook[]
+  eventId     Int
+  event       Event        @relation(fields: [eventId], references: [id])
+  predictions Prediction[]
+  createdAt   DateTime     @default(now())
+}
+
+model OrderBook {
+  id        Int         @id @default(autoincrement())
+  orderType OrderType
+  price     Float
+  quantity  Int
+  status    OrderStatus @default(PENDING)
+  tradeId   Int
+  trade     Trade       @relation(fields: [tradeId], references: [id])
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model Event {
+  id          Int          @id @default(autoincrement())
+  eventTitle  String
+  result      TradeType?
+  startTime   DateTime
+  endTime     DateTime
+  trades      Trade[]
+  predictions Prediction[] @relation("EventPredictions")
+  disputes    Dispute[]
+}
+
+model Prediction {
+  id         Int       @id @default(autoincrement())
+  userId     Int
+  tradeId    Int
+  eventId    Int
+  amount     Float
+  prediction TradeType
+  createdAt  DateTime  @default(now())
+  user       User      @relation(fields: [userId], references: [id])
+  trade      Trade     @relation(fields: [tradeId], references: [id])
+  event      Event     @relation("EventPredictions", fields: [eventId], references: [id])
+}
+
+model Transaction {
+  id        Int             @id @default(autoincrement())
+  userId    Int
+  type      TransactionType
+  amount    Float
+  balance   Float
+  createdAt DateTime        @default(now())
+  user      User            @relation(fields: [userId], references: [id])
+}
+
+model Dispute {
+  id        Int      @id @default(autoincrement())
+  eventId   Int
+  reason    String
+  status    String // 'pending', 'resolved', etc.
+  createdAt DateTime @default(now())
+  event     Event    @relation(fields: [eventId], references: [id])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
