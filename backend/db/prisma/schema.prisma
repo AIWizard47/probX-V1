@@ -35,6 +35,17 @@ enum OrderStatus {
   CANCELLED
 }
 
+enum EventCategary {
+  CRICKET
+  CRYPTO
+  YOUTUBE
+  INSTAGRAM
+  NEWS
+  TWEET
+  MOVIE
+  STOCKMARKET
+}
+
 enum TransactionType {
   DEPOSIT
   WITHDRAWAL
@@ -83,13 +94,16 @@ model OrderBook {
 }
 
 model Event {
-  id          Int          @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   eventTitle  String
-  result      TradeType?
+  cratedTime  DateTime
   startTime   DateTime
   endTime     DateTime
+  eventLogo   String
+  categary    EventCategary
+  description String
   trades      Trade[]
-  predictions Prediction[] @relation("EventPredictions")
+  predictions Prediction[]  @relation("EventPredictions")
   disputes    Dispute[]
 }
 
