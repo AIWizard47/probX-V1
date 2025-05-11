@@ -7,7 +7,7 @@ export const getAllEvents = async (req, res) => {
         return res.status(200).json({ events: allEvents });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Something went wrong1" });
+        return res.status(500).json({ message: "Something went wrong" });
     }
 };
 
@@ -24,7 +24,7 @@ export const getEventById = async (req, res) => {
         return res.status(200).json({ event });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Something went wrong3" });
+        return res.status(500).json({ message: "Something went wrong" });
     }
 };
 

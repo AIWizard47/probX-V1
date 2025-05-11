@@ -71,7 +71,10 @@ model Trade {
   tradeTitle  String
   price       Float
   quantity    Int
+  tradeLogo   String
+  orderType   OrderType
   tradeType   TradeType
+  category    String
   userId      Int
   user        User         @relation(fields: [userId], references: [id])
   orderBooks  OrderBook[]
@@ -113,6 +116,7 @@ model Prediction {
   tradeId    Int
   eventId    Int
   amount     Float
+  orderType  OrderType
   prediction TradeType
   createdAt  DateTime  @default(now())
   user       User      @relation(fields: [userId], references: [id])
