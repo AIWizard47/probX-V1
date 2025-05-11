@@ -12,10 +12,10 @@ export const signup = async (req, res) => {
         const existingUserByUsername = await prisma.user.findUnique({ where: { username } });
 
         if (existingUserByEmail) {
-            return res.status(400).json({ error: 'Email already exists' });
+            return res.status(400).json({ message: 'Email already exists' });
         }
         if (existingUserByUsername) {
-            return res.status(400).json({ error: 'Username already exists' });
+            return res.status(400).json({ message: 'Username already exists' });
         }
 
         const hashPassword = await bcrypt.hash(password, 10);
@@ -52,7 +52,7 @@ export const login = async (req, res) => {
 
         // If no user found (either by email or username)
         if (!user) {
-            return res.status(401).json({ error: 'Invalid credentials' });
+            return res.status(401).json({ message: 'Invalid credentials' });
         }
 
         // Compare password (hash) with the stored password
@@ -60,7 +60,7 @@ export const login = async (req, res) => {
 
         // If password doesn't match
         if (!isPasswordValid) {
-            return res.status(401).json({ error: 'Invalid credentials' });
+            return res.status(401).json({ message: 'Invalid credentials' });
         }
 
         //provide expiry

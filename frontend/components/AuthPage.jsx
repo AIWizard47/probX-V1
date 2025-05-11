@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-
+import { toast } from "react-toastify";
 export default function AuthPage() {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
   //login
@@ -17,7 +17,8 @@ export default function AuthPage() {
     try {
       //check password
       if (password !== confirmpassword) {
-        alert("password & confirmpassword must be same");
+        toast.warning("password & confirmpassword must be same");
+        // alert("password & confirmpassword must be same");
         return;
       }
 
@@ -31,17 +32,24 @@ export default function AuthPage() {
       );
 
       if (response.data.message === "User created") {
-        alert("User created");
+        toast.success("User Created !");
+        // alert("User created");
       }
     } catch (error) {
-      alert("signup failed");
+      if (error.response.data.message === "Email already exists") {
+        toast.warning("Email Already Exist .");
+      } else if (error.response.data.message === "Username already exists") {
+        toast.warning("Username already exists");
+      } else {
+        toast.error("Sign-Up Failed");
+      }
+      // alert("signup failed");
     }
   };
 
   const handleSignInClick = async () => {
     try {
-      // Determine login key based on input
-      const isEmail = LoginDetail.slice(-10) === "@gmail.com"; // fixed .slice
+      const isEmail = LoginDetail.slice(-10) === "@gmail.com";
       const loginKey = isEmail ? "email" : "username";
 
       const response = await axios.post(
@@ -52,17 +60,19 @@ export default function AuthPage() {
         }
       );
 
-      if (response.data.error === "Invalid credentials") {
-        alert("Invalid credentials");
-      } else {
+      if (response.data.message === "Login successful") {
         const token = response.data.token;
         localStorage.setItem("token", token);
-        alert("Login successful");
-        // You can also redirect here or store a token
+        toast.success("Login Successful!");
       }
     } catch (error) {
-      alert("Login failed");
-      console.error(error); // Optional for debugging
+      if (error.response.data.message === "Invalid credentials") {
+        toast.warning("Invalid credentials");
+      } else {
+        toast.error("Login Failed");
+      }
+
+      console.error(error);
     }
   };
   const handleSignUppage = () => {
