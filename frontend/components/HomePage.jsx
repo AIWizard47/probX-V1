@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import HNavbar from "../HomePage_Component/HNavbar";
 
 const HomePage = () => {
   const [user, setUser] = useState({});
@@ -25,6 +26,7 @@ const HomePage = () => {
   }, []);
   return (
     <div>
+      <HNavbar user={user} />
       <h1>Home Page</h1>
       <h1 className="">Hello {user.username} , Ready to check Your Luck . </h1>
       <h1>Your Balance is : {user.balance}</h1>

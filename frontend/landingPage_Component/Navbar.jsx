@@ -10,7 +10,11 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleAuthBtn = () => {
-    navigate("/auth");
+    if (localStorage.getItem("token")) {
+      navigate("/homePage");
+    } else {
+      navigate("/auth");
+    }
   };
 
   return (

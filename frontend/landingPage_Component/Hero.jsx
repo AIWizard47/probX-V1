@@ -15,7 +15,11 @@ const HeroSection = () => {
       toast.warning("These is only for 18 years and above . ");
       return;
     }
-    navigate("/auth");
+    if (localStorage.getItem("token")) {
+      navigate("/homePage");
+    } else {
+      navigate("/auth");
+    }
   };
   return (
     <div className="px-6  md:p-12 mt-[-80px] ">

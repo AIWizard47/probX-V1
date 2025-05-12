@@ -59,11 +59,14 @@ export default function DockSection() {
               scaleClass = "scale-[1.3]";
             } else if (
               hoveredIndex === index - 1 ||
-              hoveredIndex === index + 1 ||
+              hoveredIndex === index + 1
+            ) {
+              scaleClass = "scale-[1.1]";
+            } else if (
               hoveredIndex === index + 2 ||
               hoveredIndex === index - 2
             ) {
-              scaleClass = "scale-[1.1]";
+              scaleClass = "scale-[1.0]";
             } else if (
               hoveredIndex === index - 3 ||
               hoveredIndex === index + 3
