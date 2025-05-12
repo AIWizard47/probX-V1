@@ -1,8 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 export default function AuthPage() {
   const [isSignUpMode, setIsSignUpMode] = useState(false);
+
   //login
   const [LoginDetail, setLoginDetail] = useState("");
   const [LoginPassword, setLoginPassword] = useState("");
@@ -12,6 +15,8 @@ export default function AuthPage() {
   const [password, setpassword] = useState("");
   const [username, setusername] = useState("");
   const [confirmpassword, setsetconfirmpassword] = useState("");
+
+  // Handle Sing Up
 
   const handleSignUpClick = async () => {
     try {
@@ -33,6 +38,7 @@ export default function AuthPage() {
 
       if (response.data.message === "User created") {
         toast.success("User Created !");
+        handleAuthpageRoute();
         // alert("User created");
       }
     } catch (error) {
@@ -47,6 +53,7 @@ export default function AuthPage() {
     }
   };
 
+  //Handle Singn in
   const handleSignInClick = async () => {
     try {
       const isEmail = LoginDetail.slice(-10) === "@gmail.com";
@@ -64,6 +71,7 @@ export default function AuthPage() {
         const token = response.data.token;
         localStorage.setItem("token", token);
         toast.success("Login Successful!");
+        handleHomepageRoute();
       }
     } catch (error) {
       if (error.response.data.message === "Invalid credentials") {
@@ -75,12 +83,27 @@ export default function AuthPage() {
       console.error(error);
     }
   };
+
+  // Handle for Login Page
   const handleSignUppage = () => {
     setIsSignUpMode(true);
   };
 
+  //handle for sign Up page
   const handleSignInpage = () => {
     setIsSignUpMode(false);
+  };
+
+  // route to the Homepage
+  const navigate = useNavigate();
+  const handleHomepageRoute = () => {
+    navigate("/homepage");
+  };
+
+  //route to the same page for login again
+  const handleAuthpageRoute = () => {
+    handleSignInpage();
+    //navigate("/auth");
   };
   // const handleSubmit = (e) => {
   //   e.preventDefault();

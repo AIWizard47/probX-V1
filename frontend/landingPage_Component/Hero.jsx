@@ -1,6 +1,22 @@
 import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const HeroSection = () => {
+  const [isChecked, setIsChecked] = useState(true);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+  const navigate = useNavigate();
+  const handleCreateAccount = () => {
+    if (isChecked == false) {
+      toast.warning("These is only for 18 years and above . ");
+      return;
+    }
+    navigate("/auth");
+  };
   return (
     <div className="px-6  md:p-12 mt-[-80px] ">
       <div className="flex flex-col md:flex-row items-center justify-between">
@@ -16,13 +32,25 @@ const HeroSection = () => {
             entertainment, and more.
           </p>
           <div className="mt-8">
-            <button className="bg-black text-white hover:bg-white hover:text-black font-medium py-3 px-6 rounded shadow-md">
+            <button
+              className="bg-black text-white hover:bg-white hover:text-black font-medium py-3 px-6 rounded shadow-md"
+              onClick={handleCreateAccount}
+            >
               Create Account
             </button>
             <button className="ml-4 text-black border border-black hover:bg-black hover:text-white hover:border-white font-medium py-3 px-6 rounded-lg">
               Explore Markets
             </button>
           </div>
+          <label>
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+              className="scale-120 mr-2 ml-1 accent-black"
+            />
+            For 18 years and above only .
+          </label>
         </div>
 
         {/* Right Section (Image) */}
