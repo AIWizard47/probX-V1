@@ -44,6 +44,11 @@ enum EventCategary {
   TWEET
   MOVIE
   STOCKMARKET
+  FOOTBALL
+  GAMING
+  CHESS
+  KABBADIcd
+  PRIDICTX
 }
 
 enum TransactionType {
@@ -102,6 +107,8 @@ model Event {
   cratedTime  DateTime
   startTime   DateTime
   endTime     DateTime
+  yesPrice    Float         @default(5)
+  noPrice     Float         @default(5)
   eventLogo   String
   categary    EventCategary
   description String
