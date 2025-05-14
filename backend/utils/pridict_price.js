@@ -1,4 +1,6 @@
-const PredictPrice = (prices = []) => {
+
+
+export const PredictPrice = (prices = []) => {
     if (!Array.isArray(prices) || prices.length === 0) {
         return { message: "Price array is required and cannot be empty" };
     }
@@ -29,6 +31,7 @@ const PredictPrice = (prices = []) => {
 
     return { YesPrice: CurrentYesPrice, NoPrice: CurrentNoPrice };
 };
+
 
 
 
@@ -126,8 +129,8 @@ let price = [
 ]
 
 
-let result = PredictPrice(price);
-console.log(result);
+// let result = PredictPrice(price);
+// console.log(result);
 
 
 
