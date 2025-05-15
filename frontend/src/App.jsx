@@ -5,6 +5,7 @@ import AuthPage from "../components/AuthPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HomePage from "../components/HomePage";
+import EventPage from "../components/EventPage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/homePage" element={<HomePage />} />
+          <Route path="/event/:id" element={<EventPage />} />
         </Routes>
       </BrowserRouter>
       <ToastContainer

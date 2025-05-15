@@ -7,9 +7,9 @@ import {
   FaFacebook,
 } from "react-icons/fa6";
 
-const SocialLinks = () => {
+const SocialLinks = ({ bgColor = "bg-[#050505]" }) => {
   return (
-    <div className="bg-[#050505] border-t  border-black py-6 mt-12 mb-[-40px]">
+    <div className={`${bgColor} border-t  border-black py-6 mt-12 mb-[-40px]`}>
       <div className="flex justify-center items-center space-x-10">
         <a
           href="#"

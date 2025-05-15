@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 const HNavbar = ({ user }) => {
   const char = user?.username?.[0]?.toUpperCase() || "";
+  const balance = user?.balance || 0;
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -15,7 +16,7 @@ const HNavbar = ({ user }) => {
     toast.success("Logout Successfully !");
   };
   return (
-    <nav className="bg-[#f5f5f5] shadow-sm">
+    <nav className="bg-[#f5f5f5] shadow-sm border-b-2 border-[#e4e4e4]">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center justify-between w-[100%]">
@@ -74,7 +75,7 @@ const HNavbar = ({ user }) => {
               </div>
               <div className="flex items-center justify-between w-[6.5rem] h-[2rem] border rounded-md px-3 mr-7 ">
                 <CiWallet className="text-xl" />
-                <p className="font-semibold">₹{user.balance}</p>
+                <p className="font-semibold">₹{balance}</p>
               </div>
 
               <div className="rounded-full bg-[#dcdcdc] w-[3rem] h-[3rem] flex items-center justify-center text-2xl font-bold mr-10">

@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import HNavbar from "../HomePage_Component/HNavbar";
+import CategoryTabs from "../HomePage_Component/Cateogery";
+import Footer from "../landingPage_Component/Footer";
+import { saveUser } from "../utils";
 
 const HomePage = () => {
   const [user, setUser] = useState({});
@@ -17,6 +20,7 @@ const HomePage = () => {
         })
         .then((res) => {
           console.log(res.data);
+          saveUser(res.data);
           setUser(res.data);
         })
         .catch((err) => {
@@ -25,11 +29,10 @@ const HomePage = () => {
     }
   }, []);
   return (
-    <div>
+    <div className="bg-[#f5f5f5]">
       <HNavbar user={user} />
-      <h1>Home Page</h1>
-      <h1 className="">Hello {user.username} , Ready to check Your Luck . </h1>
-      <h1>Your Balance is : {user.balance}</h1>
+      <CategoryTabs></CategoryTabs>
+      <Footer bgColor="bg-[#f5f5f5]" textColor="text-black" />
     </div>
   );
 };

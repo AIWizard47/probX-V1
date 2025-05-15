@@ -1,15 +1,15 @@
 import React from "react";
 import SocialLinks from "./SocialLinks";
 
-const Footer = () => {
+const Footer = ({ bgColor = "bg-[#050505]", textColor = "text-white" }) => {
   return (
-    <footer className="bg-[#050505] text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className={`${bgColor} ${textColor}  border-t  border-black`}>
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center">
               <svg
-                className="h-8 w-8 text-white"
+                className={`h-8 w-8 ${textColor}`}
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -50,9 +50,11 @@ const Footer = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="ml-2 text-xl font-bold">PredictX</span>
+              <span className={`ml-2 text-xl font-bold ${textColor}`}>
+                PredictX
+              </span>
             </div>
-            <p className="mt-4 text-white">
+            <p className={`mt-4 ${textColor}`}>
               Trade on your beliefs and insights about future events. PredictX
               is the leading platform for prediction markets.
             </p>
@@ -90,11 +92,16 @@ const Footer = () => {
             },
           ].map((section, idx) => (
             <div key={idx}>
-              <h3 className="text-lg font-semibold mb-4">{section.heading}</h3>
+              <h3 className={`text-lg font-semibold mb-4 ${textColor}`}>
+                {section.heading}
+              </h3>
               <ul className="space-y-2">
                 {section.links.map((link, i) => (
                   <li key={i}>
-                    <a href="#" className="text-white hover:text-black">
+                    <a
+                      href="#"
+                      className={`${textColor} hover:text-black transition`}
+                    >
                       {link}
                     </a>
                   </li>
@@ -103,12 +110,15 @@ const Footer = () => {
             </div>
           ))}
         </div>
-        <SocialLinks></SocialLinks>
+
+        <SocialLinks bgColor={bgColor} />
 
         <div className="mt-12 border-t border-black pt-8 flex flex-col md:flex-row justify-between">
-          <p className="text-white">© 2024 PredictX. All rights reserved.</p>
+          <p className={`${textColor}`}>
+            © 2024 PredictX. All rights reserved.
+          </p>
           <div className="mt-4 md:mt-0">
-            <p className="text-white">
+            <p className={`${textColor}`}>
               This game may be habit forming or financially risky. Play
               responsibly. 18+ only.
             </p>
