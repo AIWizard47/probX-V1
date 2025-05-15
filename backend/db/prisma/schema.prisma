@@ -47,7 +47,7 @@ enum EventCategary {
   FOOTBALL
   GAMING
   CHESS
-  KABBADIcd
+  KABBADI
   PRIDICTX
 }
 
@@ -57,6 +57,22 @@ enum TransactionType {
   BET
   WIN
   LOSS
+}
+
+model FAQ {
+  id        Int      @id @default(autoincrement())
+  question  String
+  answer    String
+  isActive  Boolean  @default(true) // Soft delete or hide from display
+  createdAt DateTime @default(now())
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
 }
 
 model User {
@@ -111,6 +127,7 @@ model Event {
   noPrice     Float         @default(5)
   eventLogo   String
   categary    EventCategary
+  details     String
   description String
   trades      Trade[]
   predictions Prediction[]  @relation("EventPredictions")

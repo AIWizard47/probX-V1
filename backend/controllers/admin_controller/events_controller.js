@@ -30,8 +30,8 @@ export const getEventById = async (req, res) => {
 
 // create event
 export const addEvent = async (req, res) => {
-    const { eventTitle, createdTime, startTime, endTime, eventLogo, categary, description } = req.body;
-    if (!eventLogo || !eventTitle || !createdTime || !startTime || !endTime || !eventLogo || !categary) {
+    const { eventTitle, createdTime, startTime, endTime, eventLogo, details, categary, description } = req.body;
+    if (!eventLogo || !eventTitle || !createdTime || !startTime || !details || !endTime || !eventLogo || !categary) {
         return res.status(400).json({ message: "All field required" });
     }
     try {
@@ -43,7 +43,8 @@ export const addEvent = async (req, res) => {
                 endTime,
                 eventLogo,
                 categary,
-                description
+                description,
+                details
             }
 
         })
@@ -59,7 +60,7 @@ export const addEvent = async (req, res) => {
 // Update event
 export const updateEvent = async (req, res) => {
     const id = parseInt(req.params.id);
-    const { eventTitle, createdTime, startTime, endTime, eventLogo, categary, description } = req.body;
+    const { eventTitle, createdTime, startTime, endTime, details, eventLogo, categary, description } = req.body;
 
     try {
         const isExitevent = await prisma.event.findUnique({ where: { id } });
@@ -77,7 +78,8 @@ export const updateEvent = async (req, res) => {
                 endTime,
                 eventLogo,
                 categary,
-                description
+                description,
+                details
             }
         });
 
