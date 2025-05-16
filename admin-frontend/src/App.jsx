@@ -13,9 +13,9 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute>
+            // <ProtectedRoute>
               <Dashboard />
-            </ProtectedRoute>
+            // </ProtectedRoute>
           }
         />
 
@@ -47,13 +47,13 @@ export default App;
 
 
 
-const ProtectedRoute = ({ children }) => {
-  const isLoggedIn = localStorage.getItem('token') !== null;
+// const ProtectedRoute = ({ children }) => {
+//   const isLoggedIn = localStorage.getItem('token') !== null;
 
-  if (!isLoggedIn) {
-    // Redirect to login if not authenticated
-    return <Navigate to="/" replace />;
-  }
+//   if (!isLoggedIn) {
+//     // Redirect to login if not authenticated
+//     return <Navigate to="/" replace />;
+//   }
 
-  return children;
-};
+//   return children;
+// };

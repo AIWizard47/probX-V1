@@ -30,15 +30,15 @@ export const getEventById = async (req, res) => {
 
 // create event
 export const addEvent = async (req, res) => {
-    const { eventTitle, createdTime, startTime, endTime, eventLogo, details, categary, description } = req.body;
-    if (!eventLogo || !eventTitle || !createdTime || !startTime || !details || !endTime || !eventLogo || !categary) {
+    const { eventTitle, cratedTime, startTime, endTime, eventLogo, details, categary, description } = req.body;
+    if (!eventLogo || !eventTitle || !cratedTime || !startTime || !details || !endTime || !eventLogo || !categary) {
         return res.status(400).json({ message: "All field required" });
     }
     try {
         const event = await prisma.event.create({
             data: {
                 eventTitle,
-                cratedTime: createdTime,
+                cratedTime,
                 startTime,
                 endTime,
                 eventLogo,
@@ -105,6 +105,64 @@ export const deleteEvent = async (req, res) => {
         await prisma.event.delete({ where: { id } });
 
         return res.status(200).json({ message: "Event deleted" });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Something went wrong" });
+    }
+};
+
+export const getEventsByCategory = async (req, res) => {
+    const { category } = req.params; // Access category from URL parameter
+
+    try {
+        const events = await prisma.event.findMany({ where: { categary: category } });
+
+        // if (events.length === 0) {
+        //     return res.status(404).json({ message: "No events found for this category" });
+        // }
+
+        return res.status(200).json({ events });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Something went wrong" });
+    }
+};
+
+
+export const searchEvents = async (req, res) => {
+    const { query } = req.params;  // Assuming you pass search text as a param
+
+    try {
+        const events = await prisma.event.findMany({
+            where: {
+                OR: [
+                    {
+                        eventTitle: {
+                            contains: query,
+                            mode: 'insensitive',
+                        },
+                    },
+                    {
+                        description: {
+                            contains: query,
+                            mode: 'insensitive',
+                        },
+                    },
+                    {
+                        details: {
+                            contains: query,
+                            mode: 'insensitive',
+                        },
+                    },
+                ],
+            },
+        });
+
+        // if (events.length === 0) {
+        //   return res.status(404).json({ message: "No events found matching your search" });
+        // }
+
+        return res.status(200).json({ events });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Something went wrong" });
