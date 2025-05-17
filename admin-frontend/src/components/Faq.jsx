@@ -1,46 +1,176 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Plus, Trash, Edit, ChevronDown, ChevronUp, Save, X } from 'lucide-react';
+import axios from 'axios';
 
 export default function Faq() {
-  const [faqs, setFaqs] = useState([
-    { id: 1, question: 'What is this application?', answer: 'This is a dashboard application with FAQ management capabilities.', isActive: true },
-    { id: 2, question: 'How do I add a new FAQ?', answer: 'Use the form at the top of the FAQ manager to add new questions and answers.', isActive: true },
-    { id: 3, question: 'Can I edit existing FAQs?', answer: 'Yes, click the edit button next to any FAQ to modify it.', isActive: false },
-  ]);
+  // const [faqs, setFaqs] = useState([
+  //   { id: 1, question: 'What is this application?', answer: 'This is a dashboard application with FAQ management capabilities.', isActive: true },
+  //   { id: 2, question: 'How do I add a new FAQ?', answer: 'Use the form at the top of the FAQ manager to add new questions and answers.', isActive: true },
+  //   { id: 3, question: 'Can I edit existing FAQs?', answer: 'Yes, click the edit button next to any FAQ to modify it.', isActive: false },
+  // ]);
 
-  const [newFaq, setNewFaq] = useState({ question: '', answer: '', isActive: true });
+  // get faq
+
+
+const [newFaq, setNewFaq] = useState({ question: '', answer: '', isActive: true });
   const [editingFaq, setEditingFaq] = useState(null);
   const [expandedFaqs, setExpandedFaqs] = useState({});
+const [faqs, setFaqs] = useState([]);
+
+useEffect(() => {
+  const fetchFaqs = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Authentication token missing. Please login.");
+        return;
+      }
+
+      const response = await axios.get("http://localhost:3000/api/admin/faq/all", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (Array.isArray(response.data.faqs)) {
+        setFaqs(response.data.faqs);
+      } else {
+        console.error("Unexpected response format:", response.data);
+        alert("Failed to load FAQs.");
+      }
+    } catch (error) {
+      console.error("Error fetching FAQs:", error.response?.data || error.message);
+      alert("Error loading FAQs. Please try again.");
+    }
+  };
+
+  fetchFaqs();
+}, []);
+
+
 
   // Add new FAQ
-  const handleAddFaq = () => {
-    if (newFaq.question.trim() === '' || newFaq.answer.trim() === '') {
-      alert('Please fill in both question and answer fields');
+  const handleAddFaq = async () => {
+  if (newFaq.question.trim() === '' || newFaq.answer.trim() === '') {
+    alert('Please fill in both question and answer fields');
+    return;
+  }
+
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Authentication token missing. Please log in again.");
       return;
     }
 
-    const newId = faqs.length > 0 ? Math.max(...faqs.map(faq => faq.id)) + 1 : 1;
-    setFaqs([...faqs, { ...newFaq, id: newId }]);
-    setNewFaq({ question: '', answer: '', isActive: true });
-  };
+    const response = await axios.post(
+      "http://localhost:3000/api/admin/faq/add",
+      {
+        question: newFaq.question,
+        answer: newFaq.answer,
+        isActive: newFaq.isActive
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    if (response.status === 201 || response.data.message === "FAQ Added") {
+      const newId = response.data.id || (faqs.length > 0 ? Math.max(...faqs.map(faq => faq.id)) + 1 : 1);
+      setFaqs([...faqs, { ...newFaq, id: newId }]);
+      setNewFaq({ question: '', answer: '', isActive: true });
+      alert("FAQ added successfully!");
+    } else {
+      alert("Unexpected response from the server.");
+    }
+  } catch (error) {
+    console.error("Error adding FAQ:", error.response?.data || error.message);
+    alert("Failed to add FAQ. Please try again.");
+  }
+};
 
   // Delete FAQ
-  const handleDeleteFaq = (id) => {
-    if (window.confirm('Are you sure you want to delete this FAQ?')) {
+const handleDeleteFaq = async (id) => {
+  if (window.confirm('Are you sure you want to delete this FAQ?')) {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Authentication token missing. Please log in again.");
+        return;
+      }
+
+      await axios.delete(`http://localhost:3000/api/admin/faq/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Update local state after successful deletion
       setFaqs(faqs.filter(faq => faq.id !== id));
 
-      // If we're currently editing this FAQ, cancel the edit
+      // Cancel edit mode if this FAQ was being edited
       if (editingFaq && editingFaq.id === id) {
         setEditingFaq(null);
       }
+
+      alert("FAQ deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting FAQ:", error.response?.data || error.message);
+      alert("Failed to delete FAQ. Please try again.");
     }
-  };
+  }
+};
+
+const handleEditStart = (faq) => {
+  setEditingFaq({ ...faq }); // Make a copy to avoid mutating the original object
+};
 
   // Start editing FAQ
-  const handleEditStart = (faq) => {
-    setEditingFaq({ ...faq });
-  };
+const handleEditSubmit = async () => {
+  if (!editingFaq || !editingFaq.id) {
+    alert("No FAQ selected for editing.");
+    return;
+  }
 
+  if (editingFaq.question.trim() === '' || editingFaq.answer.trim() === '') {
+    alert('Please fill in both question and answer fields');
+    return;
+  }
+
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Authentication token missing. Please login again.");
+      return;
+    }
+
+    // API call to update the FAQ
+    await axios.put(
+      `http://localhost:3000/api/admin/faq/update/${editingFaq.id}`,
+      {
+        question: editingFaq.question,
+        answer: editingFaq.answer,
+        isActive: editingFaq.isActive,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    // Update local state with the edited FAQ
+    setFaqs(faqs.map(faq => faq.id === editingFaq.id ? editingFaq : faq));
+    setEditingFaq(null);
+    alert("FAQ updated successfully!");
+  } catch (error) {
+    console.error("Error updating FAQ:", error.response?.data || error.message);
+    alert("Failed to update FAQ. Please try again.");
+  }
+};
   // Cancel editing
   const handleEditCancel = () => {
     setEditingFaq(null);
@@ -60,11 +190,30 @@ export default function Faq() {
   };
 
   // Toggle FAQ active status
-  const handleToggleActive = (id) => {
+  const handleToggleActive = async (id) => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Authentication token missing. Please log in again.");
+      return;
+    }
+
+    // Send PATCH request to toggle isActive status
+    await axios.patch(`http://localhost:3000/api/admin/faq/toggle/${id}`, null, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // Update UI state only if backend update succeeded
     setFaqs(faqs.map(faq =>
       faq.id === id ? { ...faq, isActive: !faq.isActive } : faq
     ));
-  };
+  } catch (error) {
+    console.error("Error toggling active status:", error.response?.data || error.message);
+    alert("Failed to toggle FAQ status. Please try again.");
+  }
+};
 
   // Toggle FAQ expansion (for viewing answers)
   const handleToggleExpand = (id) => {
@@ -187,7 +336,7 @@ export default function Faq() {
 
                     <div className="flex space-x-2">
                       <button
-                        onClick={handleEditSave}
+                        onClick={handleEditSubmit}
                         className="px-3 py-1 bg-green-600 text-white text-sm rounded-md hover:bg-green-700 flex items-center"
                       >
                         <Save size={14} className="mr-1" />

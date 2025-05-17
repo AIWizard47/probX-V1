@@ -85,7 +85,9 @@ export default function EventManager() {
           details: '',
           description: ''
         });
-      }
+      }else {
+      alert('Unexpected response from server.');
+    }
     } catch (error) {
       console.error("Error adding event:", error);
       alert('Error adding event. Please try again.');
@@ -93,16 +95,32 @@ export default function EventManager() {
   };
 
   // Delete event
-  const handleDeleteEvent = (id) => {
-    if (window.confirm('Are you sure you want to delete this event?')) {
+  const handleDeleteEvent = async (id) => {
+  if (window.confirm('Are you sure you want to delete this event?')) {
+    try {
+      const token = localStorage.getItem('token'); // or however you store your token
+
+      await axios.delete(`http://localhost:3000/api/admin/event/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      // Remove event from state
       setEvents(events.filter(event => event.id !== id));
 
       // If we're currently editing this event, cancel the edit
       if (editingEvent && editingEvent.id === id) {
         setEditingEvent(null);
       }
+
+      alert('Event deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting event:', error);
+      alert('Failed to delete event. Please try again.');
     }
-  };
+  }
+};
 
   // Start editing event
   const handleEditStart = (event) => {
@@ -115,17 +133,38 @@ export default function EventManager() {
   };
 
   // Save edited event
-  const handleEditSave = () => {
-    if (editingEvent.eventTitle.trim() === '' || editingEvent.description.trim() === '') {
-      alert('Please fill in all required fields (title and description)');
-      return;
-    }
+  const handleEditSave = async () => {
+  if (!editingEvent || !editingEvent.id) {
+    alert("No event selected for editing.");
+    return;
+  }
 
+  try {
+    const token = localStorage.getItem('token');
+
+    await axios.put(
+      `http://localhost:3000/api/admin/event/${editingEvent.id}`,
+      editingEvent,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    // Update the local event list
     setEvents(events.map(event =>
       event.id === editingEvent.id ? editingEvent : event
     ));
+
     setEditingEvent(null);
-  };
+    alert("Event updated successfully!");
+  } catch (error) {
+    console.error("Error updating event:", error);
+    alert("Failed to update event. Please try again.");
+  }
+};
 
   // Handle search input change
 const handleSearchChange = async (category) => {
@@ -588,7 +627,11 @@ useEffect(() => {
                       </div>
                       <div className="flex items-center">
                         <Tag size={16} className="mr-2 text-gray-500" />
-                        <span>Yes Price: ${event.yesPrice.toFixed(2)} / No Price: ${event.noPrice.toFixed(2)}</span>
+                       <span>
+                          Yes Price: ${event.yesPrice?.toFixed(2) ?? '0.00'} /
+                          No Price: ${event.noPrice?.toFixed(2) ?? '0.00'}
+                        </span>
+
                       </div>
                     </div>
                   </div>
