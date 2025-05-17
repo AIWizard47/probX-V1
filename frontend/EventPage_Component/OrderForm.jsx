@@ -7,22 +7,21 @@ export default function OrderForm({ id }) {
   const [event, setEvent] = useState({});
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/api/user/event/${eventid}`)
-      .then((res) => {
-        console.log(res.data.event);
-        const recivedEvent = res.data?.event || {};
-        if (recivedEvent.length === 0) {
-          setEvent({});
-        } else {
-          console.log(recivedEvent);
-          setEvent(recivedEvent);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  axios
+    .get(`http://localhost:3000/api/user/event/${eventid}`)
+    .then((res) => {
+      const recivedEvent = res.data?.event || {};
+      if (Object.keys(recivedEvent).length === 0) {
+        setEvent({});
+      } else {
+        setEvent(recivedEvent);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}, [event]);
+
 
   const yesPrice = event.yesPrice;
   const noPrice = event.noPrice;
@@ -73,7 +72,7 @@ export default function OrderForm({ id }) {
         toast.error("trade failed");
         console.log(err);
       });
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (
