@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
+
 const categories = [
   { label: "All events", route: "All EVENTS" },
   { label: "Cricket", route: "CRICKET" },
@@ -21,6 +23,7 @@ const categories = [
 export default function CategoryTabs() {
   const [activeRoute, setActiveRoute] = useState("All EVENTS");
   const [events, setEvents] = useState([{}]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (activeRoute === "All EVENTS") {
@@ -32,6 +35,9 @@ export default function CategoryTabs() {
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     } else {
       axios
@@ -49,6 +55,9 @@ export default function CategoryTabs() {
           // coming error in which cateogery where no events is published .
           setEvents([]);
           console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
   }, [activeRoute]);
@@ -86,11 +95,17 @@ export default function CategoryTabs() {
           </div>
 
           {events.length === 0 ? (
-            <div className="pt-10 h-[60vh]">
-              <h1 className="font-bold text-2xl text-shadow-pink-100 font-stretch-180% ">
-                NO Eventes published yet Plese Visits another events .
-              </h1>
-            </div>
+            loading ? (
+              <Loader />
+            ) : (
+              <div className="pt-10 h-[60vh]">
+                <h1 className="font-bold text-2xl text-shadow-pink-100 font-stretch-180% ">
+                  NO Eventes published yet Plese Visits another events .
+                </h1>
+              </div>
+            )
+          ) : loading ? (
+            <Loader />
           ) : (
             <div className="pt-5 grid grid-cols-3 gap-3 min-h-[70vh]">
               {events.map((eve) => (

@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import RulesSection from "./EventRules";
+import Loader from "../components/Loader";
 
 const EventDetails = ({ id }) => {
   const eventid = id;
   const [event, setEvent] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -20,6 +22,9 @@ const EventDetails = ({ id }) => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -46,7 +51,9 @@ const EventDetails = ({ id }) => {
     hour12: true,
   });
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div>
       <div className="flex items-center gap-6">
         <img

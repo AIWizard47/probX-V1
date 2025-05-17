@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 
 const HNavbar = ({ user }) => {
   const char = user?.username?.[0]?.toUpperCase() || "";
-  const balance = user?.balance || 0;
+  const balance = user?.balance ? Math.floor(user.balance * 100) / 100 : 0;
   const navigate = useNavigate();
 
   const handleLogout = () => {

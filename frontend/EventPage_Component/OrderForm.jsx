@@ -1,27 +1,28 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import Loader, { ButtonLoader } from "../components/Loader";
 
 export default function OrderForm({ id }) {
   const eventid = id;
   const [event, setEvent] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-  axios
-    .get(`http://localhost:3000/api/user/event/${eventid}`)
-    .then((res) => {
-      const recivedEvent = res.data?.event || {};
-      if (Object.keys(recivedEvent).length === 0) {
-        setEvent({});
-      } else {
-        setEvent(recivedEvent);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}, [event]);
-
+    axios
+      .get(`http://localhost:3000/api/user/event/${eventid}`)
+      .then((res) => {
+        const recivedEvent = res.data?.event || {};
+        if (Object.keys(recivedEvent).length === 0) {
+          setEvent({});
+        } else {
+          setEvent(recivedEvent);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [event]);
 
   const yesPrice = event.yesPrice;
   const noPrice = event.noPrice;
@@ -46,6 +47,7 @@ export default function OrderForm({ id }) {
   const tradeType = selectedOption.toUpperCase();
 
   const handleTradeOrder = async () => {
+    setLoading(true);
     const token = localStorage.getItem("token");
     axios
       .post(
@@ -71,6 +73,9 @@ export default function OrderForm({ id }) {
       .catch((err) => {
         toast.error("trade failed");
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
     // window.location.reload();
   };
@@ -146,8 +151,9 @@ export default function OrderForm({ id }) {
           selectedOption === "yes" ? "bg-blue-700" : "bg-red-700"
         } ${selectedOption === "yes" ? "bg-blue-600" : "bg-red-600"}`}
         onClick={handleTradeOrder}
+        disabled={loading}
       >
-        Place order
+        {loading ? <ButtonLoader /> : " Place order"}
       </button>
     </div>
   );
