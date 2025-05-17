@@ -39,7 +39,7 @@ const HomePage = () => {
     <Loader />
   ) : (
     <div className="bg-[#f5f5f5]">
-      <HNavbar user={user} />
+      <HNavbar  />
       <CategoryTabs />
       <Footer bgColor="bg-[#f5f5f5]" textColor="text-black" />
     </div>

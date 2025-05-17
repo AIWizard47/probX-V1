@@ -3,6 +3,8 @@ import Navbar from "../landingPage_Component/Navbar";
 import HeroSection from "../landingPage_Component/Hero";
 import Footer from "../landingPage_Component/Footer";
 import CircularIcons from "../landingPage_Component/CircularIcon";
+import FAQ from "../landingPage_Component/Faq";
+
 
 const LandingPage = () => {
   return (
@@ -12,6 +14,7 @@ const LandingPage = () => {
         <HeroSection></HeroSection>
       </main>
       <CircularIcons></CircularIcons>
+      <FAQ/>
       <Footer></Footer>
     </div>
   );

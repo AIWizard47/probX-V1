@@ -14,7 +14,7 @@ export default function EventPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <HNavbar user={user} />
+      <HNavbar  />
 
       <div className="flex flex-1 px-30 py-10 bg-[#f5f5f5]">
         <div className="w-2/3 pr-4 overflow-y-auto max-h-[calc(100vh-80px)] scrollbar-hide">

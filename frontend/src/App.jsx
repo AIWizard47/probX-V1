@@ -6,18 +6,25 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HomePage from "../components/HomePage";
 import EventPage from "../components/EventPage";
+import { BalanceProvider } from "./provider/BalanceContext";
+
+
+const token = localStorage.getItem("token");
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/auth" element={<AuthPage />} />
-          <Route path="/homePage" element={<HomePage />} />
-          <Route path="/event/:id" element={<EventPage />} />
-        </Routes>
+        <BalanceProvider token={token}>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/homePage" element={<HomePage />} />
+            <Route path="/event/:id" element={<EventPage />} />
+          </Routes>
+        </BalanceProvider>
       </BrowserRouter>
+
       <ToastContainer
         position="bottom-right"
         autoClose={3000}

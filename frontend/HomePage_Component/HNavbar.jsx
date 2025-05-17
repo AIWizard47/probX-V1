@@ -4,11 +4,15 @@ import { CiWallet } from "react-icons/ci";
 import { IoIosLogOut } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useBalance } from "../src/provider/BalanceContext";
 
-const HNavbar = ({ user }) => {
-  const char = user?.username?.[0]?.toUpperCase() || "";
-  const balance = user?.balance ? Math.floor(user.balance * 100) / 100 : 0;
+const HNavbar = () => {
+  // const char = user?.username?.[0]?.toUpperCase() || "";
+  // const balance = user?.balance ? Math.floor(user.balance * 100) / 100 : 0;
   const navigate = useNavigate();
+   const { balance, user, loading, fetchUserData } = useBalance();
+   const char = user?.username?.[0]?.toUpperCase() || "";
+
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -75,7 +79,7 @@ const HNavbar = ({ user }) => {
               </div>
               <div className="flex items-center justify-between w-[6.5rem] h-[2rem] border rounded-md px-3 mr-7 ">
                 <CiWallet className="text-xl" />
-                <p className="font-semibold">₹{balance}</p>
+                 <p className="font-semibold">₹{(balance ?? 0).toFixed(2)}</p>
               </div>
 
               <div className="rounded-full bg-[#dcdcdc] w-[3rem] h-[3rem] flex items-center justify-center text-2xl font-bold mr-10">
