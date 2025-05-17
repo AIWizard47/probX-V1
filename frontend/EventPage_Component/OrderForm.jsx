@@ -1,8 +1,31 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
-export default function OrderForm() {
-  const yesPrice = 5.5;
-  const noPrice = 4.5;
+export default function OrderForm({ id }) {
+  const eventid = id;
+  const [event, setEvent] = useState({});
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3000/api/user/event/${eventid}`)
+      .then((res) => {
+        console.log(res.data.event);
+        const recivedEvent = res.data?.event || {};
+        if (recivedEvent.length === 0) {
+          setEvent({});
+        } else {
+          console.log(recivedEvent);
+          setEvent(recivedEvent);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const yesPrice = event.yesPrice;
+  const noPrice = event.noPrice;
 
   const [selectedOption, setSelectedOption] = useState("yes");
   const [quantity, setQuantity] = useState(1);
@@ -13,6 +36,43 @@ export default function OrderForm() {
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
+  };
+  let orderPrice = 5;
+  if (selectedOption === "yes") {
+    orderPrice = Math.max(event.yesPrice, 0.01);
+  } else {
+    orderPrice = Math.max(event.noPrice, 0.01);
+  }
+
+  const tradeType = selectedOption.toUpperCase();
+
+  const handleTradeOrder = async () => {
+    const token = localStorage.getItem("token");
+    axios
+      .post(
+        "http://localhost:3000/api/user/trade",
+        {
+          price: orderPrice,
+          quantity: quantity,
+          orderType: "BUY",
+          tradeType: tradeType,
+          eventId: parseInt(eventid),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // send token as bearer
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.message === "Trade success") {
+          toast.success("trade successfull.");
+        }
+      })
+      .catch((err) => {
+        toast.error("trade failed");
+        console.log(err);
+      });
   };
 
   return (
@@ -85,6 +145,7 @@ export default function OrderForm() {
         className={`w-full text-white py-2 rounded-md font-semibold mt-5 hover:${
           selectedOption === "yes" ? "bg-blue-700" : "bg-red-700"
         } ${selectedOption === "yes" ? "bg-blue-600" : "bg-red-600"}`}
+        onClick={handleTradeOrder}
       >
         Place order
       </button>

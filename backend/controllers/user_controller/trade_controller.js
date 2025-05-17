@@ -81,6 +81,16 @@ export const addTrade = async (req, res) => {
                 });
 
                 const result = PredictPrice(prices);
+                const up = await prisma.event.update({
+                    where: {
+                        id: eventId, // ID of the event you want to update
+                    },
+                    data: {
+                        yesPrice: result.YesPrice, // new value for yesPrice
+                        noPrice: result.NoPrice,   // new value for noPrice
+                    },
+                    });
+
                 return res.status(200).json({ message: "Trade success", trade, result });
 
             } else if (orderType === "SELL") {
@@ -146,6 +156,17 @@ export const addTrade = async (req, res) => {
                 });
 
                 const result = PredictPrice(prices);
+                //update yes price and no price
+                  const up = await prisma.event.update({
+                    where: {
+                        id: eventId, // ID of the event you want to update
+                    },
+                    data: {
+                        yesPrice: result.YesPrice, // new value for yesPrice
+                        noPrice: result.NoPrice,   // new value for noPrice
+                    },
+                    });
+
                 return res.status(200).json({ message: "Trade success", trade, result });
             }
 

@@ -33,7 +33,7 @@ export default function EventPage() {
         <div className="w-1/3">
           <div className="sticky top-24">
             {" "}
-            <OrderForm />
+            <OrderForm id={id} />
           </div>
         </div>
       </div>
