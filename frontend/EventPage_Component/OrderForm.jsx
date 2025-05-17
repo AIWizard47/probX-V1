@@ -73,6 +73,7 @@ export default function OrderForm({ id }) {
         toast.error("trade failed");
         console.log(err);
       });
+    window.location.reload();
   };
 
   return (
