@@ -26,11 +26,11 @@ export const BalanceProvider = ({ token, children }) => {
         }
     };
 
-    useEffect(() => {
-        if (token) {
-            fetchUserData();
-        }
-    }, [token , user]);
+   useEffect(() => {
+    if (token) {
+        fetchUserData();
+    }
+}, [token]);
 
     return (
         <BalanceContext.Provider value={{ balance, setBalance, user, setUser, fetchUserData, loading }}>

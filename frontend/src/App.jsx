@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import HomePage from "../components/HomePage";
 import EventPage from "../components/EventPage";
 import { BalanceProvider } from "./provider/BalanceContext";
+import { YesNoPriceProvider } from "./provider/YesNoPrice";
 
 
 const token = localStorage.getItem("token");
@@ -15,6 +16,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+      {/* <YesNoPriceProvider token={token} eventId={eventId}> */}
         <BalanceProvider token={token}>
           <Routes>
             <Route path="/" element={<LandingPage />} />
@@ -23,7 +25,9 @@ function App() {
             <Route path="/event/:id" element={<EventPage />} />
           </Routes>
         </BalanceProvider>
+        {/* </YesNoPriceProvider> */}
       </BrowserRouter>
+
 
       <ToastContainer
         position="bottom-right"

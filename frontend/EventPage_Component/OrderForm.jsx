@@ -1,28 +1,37 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import Loader, { ButtonLoader } from "../components/Loader";
+import  { ButtonLoader } from "../components/Loader";
+import { useBalance } from "../src/provider/BalanceContext";
+
 
 export default function OrderForm({ id }) {
   const eventid = id;
   const [event, setEvent] = useState({});
   const [loading, setLoading] = useState(false);
+  const { fetchUserData } = useBalance();
 
-  useEffect(() => {
-    axios
+  const fetchYesNoPrices = async ()=>{
+     axios
       .get(`http://localhost:3000/api/user/event/${eventid}`)
       .then((res) => {
         const recivedEvent = res.data?.event || {};
         if (Object.keys(recivedEvent).length === 0) {
           setEvent({});
         } else {
+
           setEvent(recivedEvent);
         }
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [event]);
+  }
+
+  useEffect(()=>{
+    fetchYesNoPrices()
+  }, [])
+
 
   const yesPrice = event.yesPrice;
   const noPrice = event.noPrice;
@@ -46,39 +55,40 @@ export default function OrderForm({ id }) {
 
   const tradeType = selectedOption.toUpperCase();
 
-  const handleTradeOrder = async () => {
+ const handleTradeOrder = async () => {
     setLoading(true);
     const token = localStorage.getItem("token");
-    axios
-      .post(
-        "http://localhost:3000/api/user/trade",
-        {
-          price: orderPrice,
-          quantity: quantity,
-          orderType: "BUY",
-          tradeType: tradeType,
-          eventId: parseInt(eventid),
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // send token as bearer
-          },
-        }
-      )
-      .then((res) => {
+
+    try {
+        const res = await axios.post(
+            "http://localhost:3000/api/user/trade",
+            {
+                price: orderPrice,
+                quantity: quantity,
+                orderType: "BUY",
+                tradeType: tradeType,
+                eventId: parseInt(eventid),
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
         if (res.data.message === "Trade success") {
-          toast.success("trade successfull.");
+            await fetchUserData(); // ✅ properly awaited
+            toast.success("Trade successful.");
+            await fetchYesNoPrices()
         }
-      })
-      .catch((err) => {
-        toast.error("trade failed");
-        console.log(err);
-      })
-      .finally(() => {
+    } catch (err) {
+        toast.error("Trade failed");
+        console.error(err);
+    } finally {
         setLoading(false);
-      });
-    // window.location.reload();
-  };
+    }
+};
+
 
   return (
     <div className="max-w-sm min-w-sm mx-auto border-gray-200 border-2 rounded-lg shadow-md p-4 bg-white">
