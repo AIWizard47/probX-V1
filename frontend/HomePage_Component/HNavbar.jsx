@@ -19,6 +19,7 @@ const HNavbar = () => {
     navigate("/");
     toast.success("Logout Successfully !");
   };
+
   return (
     <nav className="bg-[#f5f5f5] shadow-sm border-b-2 border-[#e4e4e4]">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -72,7 +73,9 @@ const HNavbar = () => {
               </span>
             </div>
 
-            <div className="flex mr-20 items-center">
+            <div className="flex mr-20 items-center"
+              onClick={()=>navigate('/portfolio')}
+            >
               <div className="flex flex-col items-center mx-7">
                 <FaShoppingBag className="text-[1.3rem]   " />
                 <p>Portfolio</p>

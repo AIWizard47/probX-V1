@@ -66,6 +66,18 @@ export const addTrade = async (req, res) => {
                     }
                 });
 
+                // add in prediction table
+                await prisma.prediction.create({
+                    data: {
+                        price,
+                        quantity,
+                        orderType,
+                        prediction: tradeType,
+                        eventId,
+                        userId,
+                        tradeId: trade.id
+                    }
+                })
                 // Deduct balance
                 await prisma.user.update({
                     where: { id: userId },
@@ -89,7 +101,7 @@ export const addTrade = async (req, res) => {
                         yesPrice: result.YesPrice, // new value for yesPrice
                         noPrice: result.NoPrice,   // new value for noPrice
                     },
-                    });
+                });
 
                 return res.status(200).json({ message: "Trade success", trade, result });
 
@@ -141,6 +153,13 @@ export const addTrade = async (req, res) => {
                     }
                 });
 
+                // delete from prediction table
+                await prisma.prediction.delete({
+                    where: {
+                        tradeId: trade.id
+                    }
+                })
+
                 // Credit balance
                 await prisma.user.update({
                     where: { id: userId },
@@ -157,7 +176,7 @@ export const addTrade = async (req, res) => {
 
                 const result = PredictPrice(prices);
                 //update yes price and no price
-                  const up = await prisma.event.update({
+                const up = await prisma.event.update({
                     where: {
                         id: eventId, // ID of the event you want to update
                     },
@@ -165,7 +184,7 @@ export const addTrade = async (req, res) => {
                         yesPrice: result.YesPrice, // new value for yesPrice
                         noPrice: result.NoPrice,   // new value for noPrice
                     },
-                    });
+                });
 
                 return res.status(200).json({ message: "Trade success", trade, result });
             }

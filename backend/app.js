@@ -10,6 +10,7 @@ import userDetailRoutes from './routes/user_routes/details_routee.js'
 import adminauthRoutes from './routes/admin_routes/auth_routes.js'
 import adminFaqRoutes from './routes/admin_routes/faq_routes.js'
 import userFaqRoutes from './routes/user_routes/faq_routes.js'
+import userPridictionRoutes from './routes/user_routes/pridiction_routes.js'
 import { prisma } from './db/db.js'; // Make sure the path is correct
 
 
@@ -33,6 +34,8 @@ app.use('/api/user/userdata', UserMiddleware, userDetailRoutes)
 app.use('/api/admin/faq', adminFaqRoutes);
 
 app.use('/api/user/faq', userFaqRoutes);
+
+app.use('/api/user/pridiction', UserMiddleware, userPridictionRoutes)
 
 // app.get('/getb', UserMiddleware, async (req, res) => {
 //     const userId = req.user;

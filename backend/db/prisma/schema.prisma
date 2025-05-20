@@ -139,7 +139,8 @@ model Prediction {
   userId     Int
   tradeId    Int
   eventId    Int
-  amount     Float
+  price      Float
+  quantity   Int
   orderType  OrderType
   prediction TradeType
   createdAt  DateTime  @default(now())

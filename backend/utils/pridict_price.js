@@ -32,101 +32,102 @@ export const PredictPrice = (prices = []) => {
     return { YesPrice: CurrentYesPrice, NoPrice: CurrentNoPrice };
 };
 
+export
 
 
 
-let price = [
-    {
-        "id": 13,
-        "tradeTitle": "sam",
-        "price": 7,
-        "quantity": 10,
-        "tradeLogo": "https://example.com/logo.png",
-        "orderType": "BUY",
-        "tradeType": "YES",
-        "category": "STOCKMARKET",
-        "userId": 1,
-        "eventId": 4,
-        "createdAt": "2025-05-11T22:06:25.556Z"
-    },
-    {
-        "id": 12,
-        "tradeTitle": "sam",
-        "price": 5,
-        "quantity": 10,
-        "tradeLogo": "https://example.com/logo.png",
-        "orderType": "BUY",
-        "tradeType": "YES",
-        "category": "STOCKMARKET",
-        "userId": 1,
-        "eventId": 4,
-        "createdAt": "2025-05-11T22:04:23.496Z"
-    },
-    {
-        "id": 11,
-        "tradeTitle": "sam",
-        "price": 7.5,
-        "quantity": 10,
-        "tradeLogo": "https://example.com/logo.png",
-        "orderType": "BUY",
-        "tradeType": "NO",
-        "category": "STOCKMARKET",
-        "userId": 1,
-        "eventId": 4,
-        "createdAt": "2025-05-11T21:35:29.143Z"
-    },
-    {
-        "id": 8,
-        "tradeTitle": "sam",
-        "price": 9,
-        "quantity": 10,
-        "tradeLogo": "https://example.com/logo.png",
-        "orderType": "BUY",
-        "tradeType": "NO",
-        "category": "STOCKMARKET",
-        "userId": 1,
-        "eventId": 4,
-        "createdAt": "2025-05-11T21:35:13.714Z"
-    },
-    {
-        "id": 8,
-        "tradeTitle": "sam",
-        "price": 4,
-        "quantity": 10,
-        "tradeLogo": "https://example.com/logo.png",
-        "orderType": "SELL",
-        "tradeType": "NO",
-        "category": "STOCKMARKET",
-        "userId": 1,
-        "eventId": 4,
-        "createdAt": "2025-05-11T21:35:13.714Z"
-    },
-    {
-        "id": 8,
-        "tradeTitle": "sam",
-        "price": 10,
-        "quantity": 10,
-        "tradeLogo": "https://example.com/logo.png",
-        "orderType": "SELL",
-        "tradeType": "YES",
-        "category": "STOCKMARKET",
-        "userId": 1,
-        "eventId": 4,
-        "createdAt": "2025-05-11T21:35:13.714Z"
-    }, {
-        "id": 8,
-        "tradeTitle": "sam",
-        "price": 2,
-        "quantity": 10,
-        "tradeLogo": "https://example.com/logo.png",
-        "orderType": "SELL",
-        "tradeType": "YES",
-        "category": "STOCKMARKET",
-        "userId": 1,
-        "eventId": 4,
-        "createdAt": "2025-05-11T21:35:13.714Z"
-    }
-]
+    let price = [
+        {
+            "id": 13,
+            "tradeTitle": "sam",
+            "price": 7,
+            "quantity": 10,
+            "tradeLogo": "https://example.com/logo.png",
+            "orderType": "BUY",
+            "tradeType": "YES",
+            "category": "STOCKMARKET",
+            "userId": 1,
+            "eventId": 4,
+            "createdAt": "2025-05-11T22:06:25.556Z"
+        },
+        {
+            "id": 12,
+            "tradeTitle": "sam",
+            "price": 5,
+            "quantity": 10,
+            "tradeLogo": "https://example.com/logo.png",
+            "orderType": "BUY",
+            "tradeType": "YES",
+            "category": "STOCKMARKET",
+            "userId": 1,
+            "eventId": 4,
+            "createdAt": "2025-05-11T22:04:23.496Z"
+        },
+        {
+            "id": 11,
+            "tradeTitle": "sam",
+            "price": 7.5,
+            "quantity": 10,
+            "tradeLogo": "https://example.com/logo.png",
+            "orderType": "BUY",
+            "tradeType": "NO",
+            "category": "STOCKMARKET",
+            "userId": 1,
+            "eventId": 4,
+            "createdAt": "2025-05-11T21:35:29.143Z"
+        },
+        {
+            "id": 8,
+            "tradeTitle": "sam",
+            "price": 9,
+            "quantity": 10,
+            "tradeLogo": "https://example.com/logo.png",
+            "orderType": "BUY",
+            "tradeType": "NO",
+            "category": "STOCKMARKET",
+            "userId": 1,
+            "eventId": 4,
+            "createdAt": "2025-05-11T21:35:13.714Z"
+        },
+        {
+            "id": 8,
+            "tradeTitle": "sam",
+            "price": 4,
+            "quantity": 10,
+            "tradeLogo": "https://example.com/logo.png",
+            "orderType": "SELL",
+            "tradeType": "NO",
+            "category": "STOCKMARKET",
+            "userId": 1,
+            "eventId": 4,
+            "createdAt": "2025-05-11T21:35:13.714Z"
+        },
+        {
+            "id": 8,
+            "tradeTitle": "sam",
+            "price": 10,
+            "quantity": 10,
+            "tradeLogo": "https://example.com/logo.png",
+            "orderType": "SELL",
+            "tradeType": "YES",
+            "category": "STOCKMARKET",
+            "userId": 1,
+            "eventId": 4,
+            "createdAt": "2025-05-11T21:35:13.714Z"
+        }, {
+            "id": 8,
+            "tradeTitle": "sam",
+            "price": 2,
+            "quantity": 10,
+            "tradeLogo": "https://example.com/logo.png",
+            "orderType": "SELL",
+            "tradeType": "YES",
+            "category": "STOCKMARKET",
+            "userId": 1,
+            "eventId": 4,
+            "createdAt": "2025-05-11T21:35:13.714Z"
+        }
+    ]
 
 
 // let result = PredictPrice(price);
