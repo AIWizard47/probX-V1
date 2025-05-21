@@ -1,8 +1,9 @@
 import express from 'express';
-import { getAllPridiction } from '../../controllers/user_controller/prediction_controller.js';
+import { deletePredictionById, getAllPridiction } from '../../controllers/user_controller/prediction_controller.js';
 
 const router = express.Router();
 
 router.get('/', getAllPridiction);
+router.delete('/:id' , deletePredictionById)
 
 export default router;

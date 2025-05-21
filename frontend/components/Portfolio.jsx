@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import HNavbar from '../HomePage_Component/HNavbar';
-import SellCard from './SellCard';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import HNavbar from "../HomePage_Component/HNavbar";
+import SellCard from "./SellCard";
+import axios from "axios";
 
 const Portfolio = () => {
   // Initialize with empty array to prevent undefined errors
@@ -12,18 +12,24 @@ const Portfolio = () => {
   const fetchAllSellTrade = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('token');
-      const response = await axios.get("http://localhost:3000/api/user/pridiction", {
-        headers: {
-          Authorization: `Bearer ${token}`
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        "http://localhost:3000/api/user/pridiction",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
+      );
 
       // Check for tardes (not trades) in the response
       if (response.data && Array.isArray(response.data.predictions)) {
         setAllSellTrade(response.data.predictions);
       } else {
-        console.warn("API response doesn't contain tardes array:", response.data);
+        console.warn(
+          "API response doesn't contain tardes array:",
+          response.data
+        );
         setAllSellTrade([]); // Set to empty array if data is missing or malformed
       }
       setLoading(false);
@@ -44,8 +50,8 @@ const Portfolio = () => {
   return (
     <>
       <HNavbar />
-      <div className='bg-[#f5f5f5] min-h-screen py-8 px-4 flex justify-center items-center flex-col'>
-        <h1 className='text-4xl p-4 mb-6 border-b-2 border-orange-700'>
+      <div className="bg-[#f5f5f5] min-h-screen py-8 px-4 flex justify-center items-center flex-col">
+        <h1 className="text-4xl p-4 mb-6 border-b-2 border-orange-700">
           My Portfolio
         </h1>
 
@@ -62,9 +68,11 @@ const Portfolio = () => {
                 key={trade.id || index}
                 price={trade.price || 0}
                 quantity={trade.quantity || 0}
-                tradeType={trade.tradeType || 'NO'}
-                gain={calculateGain(trade)}  // Calculate gain since it's not in the API response
-                eventTitle={trade.tradeTitle || 'Unknown Event'}
+                tradeType={trade.prediction || "NO"}
+                gain={calculateGain(trade)} // Calculate gain since it's not in the API response
+                eventTitle={trade.tradeTitle || "Unknown Event"}
+                eventId={trade.eventId}
+                id={trade.id}
               />
             ))}
           </div>
@@ -87,4 +95,3 @@ const calculateGain = (trade) => {
 };
 
 export default Portfolio;
-

@@ -154,11 +154,18 @@ export const addTrade = async (req, res) => {
                 });
 
                 // delete from prediction table
-                await prisma.prediction.delete({
-                    where: {
-                        tradeId: trade.id
-                    }
-                })
+                // await prisma.prediction.delete({
+                //     where: {
+                //         tradeId: trade.id
+                //     }
+                // })
+
+                // await prisma.prediction.deleteMany({
+                // where: {
+                //     tradeId: trade.id
+                // }
+                // });
+
 
                 // Credit balance
                 await prisma.user.update({
