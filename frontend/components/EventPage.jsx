@@ -4,6 +4,7 @@ import Footer from "../landingPage_Component/Footer";
 import OrderForm from "../EventPage_Component/OrderForm";
 import EventDetails from "../EventPage_Component/EventDetails";
 import { getUser } from "../utils";
+import OrderBook from "../EventPage_Component/OrderBook";
 
 export default function EventPage() {
   const { id } = useParams();
@@ -26,6 +27,7 @@ export default function EventPage() {
               Event Details
             </span>{" "}
           </div>
+
 
           <EventDetails id={id}></EventDetails>
         </div>

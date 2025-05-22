@@ -357,7 +357,7 @@ export const addTrade = async (req, res) => {
                     data: {
                         price,
                         quantity: remainingQty,
-                        filledQty: 0,
+                        filledQty,
                         orderType,
                         tradeType,
                         status: "OPEN", // Changed from PENDING to OPEN for consistency
@@ -384,6 +384,8 @@ export const addTrade = async (req, res) => {
                         quantity: match.fillQty,
                         tradeLogo: event.eventLogo || "",
                         orderType,
+                        yesPrice: event.yesPrice,
+                        noPrice: event.noPrice,
                         tradeType,
                         category: event.categary || event.category || "Unknown", // Handle possible typo
                         userId,

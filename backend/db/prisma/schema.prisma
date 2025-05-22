@@ -89,6 +89,23 @@ model User {
   Order         Order[]
 }
 
+// model Trade {
+//   id          Int          @id @default(autoincrement())
+//   tradeTitle  String
+//   price       Float
+//   quantity    Int
+//   tradeLogo   String
+//   orderType   OrderType
+//   tradeType   TradeType
+//   category    String
+//   userId      Int
+//   user        User         @relation(fields: [userId], references: [id])
+//   orderBooks  Order[]
+//   eventId     Int
+//   event       Event        @relation(fields: [eventId], references: [id])
+//   predictions Prediction[]
+//   createdAt   DateTime     @default(now())
+// }
 model Trade {
   id          Int          @id @default(autoincrement())
   tradeTitle  String
@@ -105,6 +122,9 @@ model Trade {
   event       Event        @relation(fields: [eventId], references: [id])
   predictions Prediction[]
   createdAt   DateTime     @default(now())
+
+  yesPrice Float? // 👈 Add this
+  noPrice  Float? // 👈 Add this
 }
 
 model Order {

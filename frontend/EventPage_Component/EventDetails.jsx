@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import RulesSection from "./EventRules";
 import Loader from "../components/Loader";
+import OrderBook from "./OrderBook";
+import ProbabilityChart from "./ProbabilityChart";
 
 const EventDetails = ({ id }) => {
   const eventid = id;
@@ -55,7 +57,7 @@ const EventDetails = ({ id }) => {
     <Loader />
   ) : (
     <div>
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-6 mb-8">
         <img
           src={event.eventLogo}
           className="w-30 h-30 object-cover rounded"
@@ -65,6 +67,9 @@ const EventDetails = ({ id }) => {
           {event.eventTitle}
         </h1>
       </div>
+
+      <OrderBook eventId={id}/>
+      <ProbabilityChart/>
 
       <div>
         <div className="bg-white p-10 rounded-xl shadow-md my-16 mx-auto text-gray-800">
