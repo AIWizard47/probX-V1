@@ -166,7 +166,6 @@ export const getOrderbookSummery = async (req, res) => {
     }
 }
 
-
 export const getProbability = async (req, res) => {
     try {
         const { eventId } = req.params;
@@ -236,6 +235,179 @@ export const getProbability = async (req, res) => {
         });
     }
 }
+
+// export const getOrderBookQuantity = async (req, res) => {
+//     try {
+//         const { price, tradeType } = req.body;
+//         const eventId = parseInt(req.params.eventId); // Ensure it's a number
+
+//         if (isNaN(eventId)) {
+//             return res.status(400).json({
+//                 success: false,
+//                 message: 'Invalid eventId'
+//             });
+//         }
+
+//         // Determine the opposite tradeType for matching
+//         const oppositeTradeType = tradeType === "YES" ? "NO" : "YES";
+
+//         const sellOrders = await prisma.order.findMany({
+//             where: {
+//                 price: price,
+//                 tradeType: oppositeTradeType, // Match with opposite tradeType
+//                 orderType: "SELL",
+//                 eventId: eventId,
+//                 status: "OPEN"
+//             },
+//             select: {
+//                 quantity: true,
+//                 filledQty: true
+//             }
+//         });
+
+//         // Compute available quantity: quantity - filledQty
+//         const totalAvailableQuantity = sellOrders.reduce(
+//             (sum, order) => sum + (order.quantity - order.filledQty),
+//             0
+//         );
+
+//         return res.status(200).json({
+//             success: true,
+//             quantity: totalAvailableQuantity,
+//             price: price,
+//             tradeType: tradeType,
+//             eventId: eventId
+//         });
+//     } catch (error) {
+//         console.error('Error fetching quantity:', error);
+//         res.status(500).json({
+//             success: false,
+//             message: 'Failed to fetch quantity at given price'
+//         });
+//     }
+// };
+
+export const getOrderBookQuantitySELL = async (req, res) => {
+    try {
+        const { price, tradeType } = req.query;
+        const eventId = parseInt(req.params.eventId);
+        const parsedPrice = parseFloat(price); // Ensure numeric
+
+        if (isNaN(eventId)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid eventId'
+            });
+        }
+
+        // Opposite tradeType (buy "YES" matches sell "NO", and vice versa)
+        // const oppositeTradeType = tradeType === "YES" ? "NO" : "YES";
+
+        // Fetch ALL matching SELL orders
+        const sellOrders = await prisma.order.findMany({
+            where: {
+                price: parsedPrice,
+                tradeType: tradeType,
+                orderType: "SELL",
+                eventId: eventId,
+                status: "OPEN" // Ensure only OPEN orders are considered
+            },
+            select: {
+                id: true,         // For debugging
+                quantity: true,
+                filledQty: true,
+                status: true      // Verify status
+            }
+        });
+
+        // Calculate total available quantity (sum of quantity - filledQty)
+        const totalAvailableQuantity = sellOrders.reduce(
+            (sum, order) => {
+                const available = order.quantity - order.filledQty;
+                return sum + (available > 0 ? available : 0); // Prevent negative values
+            },
+            0
+        );
+
+        return res.status(200).json({
+            success: true,
+            quantity: totalAvailableQuantity,
+            // price: price,
+            // tradeType: tradeType,
+            // eventId: eventId,
+            // matchedOrdersCount: sellOrders.length, // How many orders matched
+            // matchedOrders: sellOrders, // Full list for debugging
+            // oppositeTradeTypeQueried: oppositeTradeType // For verification
+        });
+    } catch (error) {
+        console.error('Error fetching quantity:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch quantity at given price'
+        });
+    }
+};
+
+export const getOrderBookQuantityBUY = async (req, res) => {
+    try {
+        const { price, tradeType } = req.query;
+        const eventId = parseInt(req.params.eventId);
+        const parsedPrice = parseFloat(price); // Ensure numeric
+
+        if (isNaN(eventId)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid eventId'
+            });
+        }
+
+        // Opposite tradeType (buy "YES" matches sell "NO", and vice versa)
+        // const oppositeTradeType = tradeType === "YES" ? "NO" : "YES";
+
+        // Fetch ALL matching SELL orders
+        const sellOrders = await prisma.order.findMany({
+            where: {
+                price: parsedPrice,
+                tradeType: tradeType,
+                orderType: "BUY",
+                eventId: eventId,
+                status: "OPEN" // Ensure only OPEN orders are considered
+            },
+            select: {
+                id: true,         // For debugging
+                quantity: true,
+                filledQty: true,
+                status: true      // Verify status
+            }
+        });
+
+        // Calculate total available quantity (sum of quantity - filledQty)
+        const totalAvailableQuantity = sellOrders.reduce(
+            (sum, order) => {
+                const available = order.quantity - order.filledQty;
+                return sum + (available > 0 ? available : 0); // Prevent negative values
+            },
+            0
+        );
+
+        return res.status(200).json({
+            success: true,
+            quantity: totalAvailableQuantity,
+            // price: price,
+            // tradeType: tradeType,
+            // eventId: eventId,
+            // matchedOrdersCount: sellOrders.length, // How many orders matched
+            // matchedOrders: sellOrders, // Full list for debugging
+            // oppositeTradeTypeQueried: oppositeTradeType // For verification
+        });
+    } catch (error) {
+        console.error('Error fetching quantity:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch quantity at given price'
+        });
+    }
+};
 
 
 function processOrderBookData(orders) {
@@ -347,6 +519,7 @@ function getOrderBookSummary(orders) {
         }
     };
 }
+
 
 // Helper function to calculate probability based on price
 function calculateProbability(yesPrice, noPrice) {
