@@ -137,10 +137,10 @@ export default function CategoryTabs() {
                   {/* Buttons */}
                   <div className="flex gap-2">
                     <button className="flex-1 py-2 rounded-md bg-blue-50 text-blue-600 font-semibold border border-blue-200 hover:bg-blue-100">
-                      Yes ₹{eve.yesPrice}
+                      Yes ₹{eve.yesPrice.toFixed(2)}
                     </button>
                     <button className="flex-1 py-2 rounded-md bg-red-50 text-red-600 font-semibold border border-red-200 hover:bg-red-100">
-                      No ₹{eve.noPrice}
+                      No ₹{eve.noPrice.toFixed(2)}
                     </button>
                   </div>
                 </div>

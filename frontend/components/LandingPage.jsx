@@ -4,7 +4,9 @@ import HeroSection from "../landingPage_Component/Hero";
 import Footer from "../landingPage_Component/Footer";
 import CircularIcons from "../landingPage_Component/CircularIcon";
 import FAQ from "../landingPage_Component/Faq";
-
+import Features from "../landingPage_Component/features";
+import Feature2 from "../landingPage_Component/Feature2";
+import Feature3 from "../landingPage_Component/Feature3";
 
 const LandingPage = () => {
   return (
@@ -14,7 +16,10 @@ const LandingPage = () => {
         <HeroSection></HeroSection>
       </main>
       <CircularIcons></CircularIcons>
-      <FAQ/>
+      <Features />
+      <Feature2 />
+      <Feature3 />
+      <FAQ />
       <Footer></Footer>
     </div>
   );

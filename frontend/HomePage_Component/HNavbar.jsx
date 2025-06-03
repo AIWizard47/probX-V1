@@ -10,14 +10,16 @@ const HNavbar = () => {
   // const char = user?.username?.[0]?.toUpperCase() || "";
   // const balance = user?.balance ? Math.floor(user.balance * 100) / 100 : 0;
   const navigate = useNavigate();
-   const { balance, user, loading, fetchUserData } = useBalance();
-   const char = user?.username?.[0]?.toUpperCase() || "";
-
+  const { balance, user, loading, fetchUserData } = useBalance();
+  const char = user?.username?.[0]?.toUpperCase() || "";
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
     toast.success("Logout Successfully !");
+  };
+  const handlehomeroute = () => {
+    navigate("/homepage");
   };
 
   return (
@@ -25,7 +27,7 @@ const HNavbar = () => {
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center justify-between w-[100%]">
-            <div className="flex  items-center">
+            <div className="flex  items-center" onClick={handlehomeroute}>
               <svg
                 className="h-8 w-8 text-black"
                 viewBox="0 0 24 24"
@@ -73,8 +75,9 @@ const HNavbar = () => {
               </span>
             </div>
 
-            <div className="flex mr-20 items-center"
-              onClick={()=>navigate('/portfolio')}
+            <div
+              className="flex mr-20 items-center"
+              onClick={() => navigate("/portfolio")}
             >
               <div className="flex flex-col items-center mx-7">
                 <FaShoppingBag className="text-[1.3rem]   " />
@@ -82,7 +85,7 @@ const HNavbar = () => {
               </div>
               <div className="flex items-center justify-between w-[6.5rem] h-[2rem] border rounded-md px-3 mr-7 ">
                 <CiWallet className="text-xl" />
-                 <p className="font-semibold">₹{(balance ?? 0).toFixed(2)}</p>
+                <p className="font-semibold">₹{(balance ?? 0).toFixed(2)}</p>
               </div>
 
               <div className="rounded-full bg-[#dcdcdc] w-[3rem] h-[3rem] flex items-center justify-center text-2xl font-bold mr-10">
