@@ -4,6 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "postinstall": "npx prisma generate --schema=./db/prisma/schema.prisma",
     "start": "node app.js",
     "dev": "nodemon app.js",
     "postdeploy": "npx prisma migrate deploy --schema=./db/prisma/schema.prisma"
@@ -13,7 +14,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@prisma/client": "^6.7.0",
+    "@prisma/client": "^6.9.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "express": "^5.1.0",
@@ -21,6 +22,6 @@
     "nodemon": "^3.1.10"
   },
   "devDependencies": {
-    "prisma": "^6.8.2"
+    "prisma": "^6.9.0"
   }
 }
