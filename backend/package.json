@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node app.js",
-   "dev": "nodemon app.js",
-   "postdeploy": "npx prisma migrate deploy --schema=./db/prisma/schema.prisma"
+    "dev": "nodemon app.js",
+    "postdeploy": "npx prisma migrate deploy --schema=./db/prisma/schema.prisma"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,6 @@
     "nodemon": "^3.1.10"
   },
   "devDependencies": {
-    "prisma": "^6.7.0"
+    "prisma": "^6.8.2"
   }
 }
