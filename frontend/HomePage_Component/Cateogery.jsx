@@ -128,7 +128,7 @@ export default function CategoryTabs() {
                   {/* Match details */}
                   <p className="text-sm text-gray-600">
                     <span className="inline-block mr-1"></span>
-                    {eve.details}
+                    {eve.details.slice(0, 60)}
                     <span className="text-blue-600 cursor-pointer ml-1">
                       Read more
                     </span>

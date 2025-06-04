@@ -75,11 +75,11 @@ const HNavbar = () => {
               </span>
             </div>
 
-            <div
-              className="flex mr-20 items-center"
-              onClick={() => navigate("/portfolio")}
-            >
-              <div className="flex flex-col items-center mx-7">
+            <div className="flex mr-20 items-center">
+              <div
+                className="flex flex-col items-center mx-7"
+                onClick={() => navigate("/portfolio")}
+              >
                 <FaShoppingBag className="text-[1.3rem]   " />
                 <p>Portfolio</p>
               </div>
