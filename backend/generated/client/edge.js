@@ -300,8 +300,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../db/.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../db/prisma",
   "clientVersion": "6.7.0",
