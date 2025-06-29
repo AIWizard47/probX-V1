@@ -1,0 +1,42 @@
+.section4{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 80px;
+}
+.story-2{
+    height: 570px;
+    width: 550px;
+    margin: 0;
+    padding: 0;
+}
+.section4-left-part{
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+.story-2-text{
+    height: 400px;
+    width: 550px;
+    background-color: rgb(10,82,160);
+}
+.will-travel-text{
+    color: white;
+    font-size: 45px;
+    font-weight: lighter;
+    margin: 0;
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 30px;
+}
+/* .story-3{
+    height: 580px;
+    width: 550px;
+    margin: 0;
+    padding: 0;
+} */
+.story-3-text{
+    height: 400px;
+    width: 550px;
+    background-color: rgb(98,73,43);
+}

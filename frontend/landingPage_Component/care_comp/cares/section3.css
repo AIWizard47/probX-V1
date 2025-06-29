@@ -1,0 +1,72 @@
+.section3{
+    background-color: #102818;
+    position: absolute;
+   top: 840px;
+   left: 0;
+   right: 0;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   padding-bottom: 100px;
+}
+.satyaveer-img{
+    height: 300px;
+    width: 600px;
+   
+}
+
+.control-text{
+    font-size: 60px;
+    color: #FFFFFF;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    letter-spacing: 2px;
+}
+.highlight{
+    color: #96FCA5;
+}
+.bottum-part-sec3{
+    display: flex;
+    font-display: row;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+.below-img-text{
+    font-family: Arial, Helvetica, sans-serif;
+    color:#FFFFFF;
+    font-size: 20px;
+    letter-spacing: 1px;
+    margin: 0;
+    margin-bottom: 10px;
+   
+}
+.text-img-container{
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+}
+.title1-img{
+    margin-bottom: 35px;
+}
+.divider-img{
+    margin-left: 60px;
+    margin-right: 60px;
+}
+.green-button{
+    background-color:#203326 ;
+    height: 70px;
+    width: 250px;
+    border: 1px solid #2A4231;
+    color: #FFFFFF;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 6px rgb(29, 28, 28);
+    border-radius: 8px;
+    cursor: pointer;
+}
+.download-img{
+    margin-left: 10px;
+}

@@ -16,13 +16,24 @@ const Navbar = () => {
       navigate("/auth");
     }
   };
-
+  const handlereadbtn = () => {
+    navigate("/read");
+  };
+  const handleTrustsaftyBtn = () => {
+    navigate("/care");
+  };
+  const handlehomeBtn = () => {
+    navigate("/");
+  };
   return (
     <nav className="bg-white shadow-sm">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <div className="flex-shrink-0 flex items-center">
+            <div
+              className="flex-shrink-0 flex items-center"
+              onClick={handlehomeBtn}
+            >
               <svg
                 className="h-8 w-8 text-black"
                 viewBox="0 0 24 24"
@@ -71,8 +82,8 @@ const Navbar = () => {
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               <a
-                href="#"
-                className="border-b-2  text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
+                href="/"
+                className="  text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium"
               >
                 Markets
               </a>
@@ -83,13 +94,13 @@ const Navbar = () => {
                 Leaderboard
               </a>
               <a
-                href="#"
+                href="/read"
                 className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
               >
                 Read
               </a>
               <a
-                href="#"
+                href="care"
                 className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
               >
                 Trust & Safety

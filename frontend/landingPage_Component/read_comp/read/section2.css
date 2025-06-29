@@ -1,0 +1,55 @@
+.section2{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 35px;
+    margin-bottom: 100px;
+    cursor: pointer;
+}
+.world-cup-img{
+    height: 240px;
+    width: 550px;
+    border: 0.2px solid rgb(119, 118, 118);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.startup-img{
+    height: 240px;
+    width: 550px;
+    border: 0.2px solid rgb(119, 118, 118);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.world-cup-img-text-cotainer{
+    height: 390px;
+    width: 550px;
+    border: 0.2px solid rgb(119, 118, 118);
+    border-radius: 11px;
+    
+}
+.world-cup-headline{
+    color: white;
+    font-size: 20px;
+    font-weight: lighter;
+    margin: 0;
+    margin-left: 25px;
+    margin-top: 25px;
+}
+.world-cup-dis{
+    color: rgb(176, 176, 176);
+    margin-left: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight:lighter;
+}
+.world-cup-date{
+    color: rgb(176, 176, 176);
+    margin-left: 25px;
+    font-size: 10px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+}
+.world-cup-text-container{
+    width: 550px;
+    height: 150px;
+}

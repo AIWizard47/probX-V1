@@ -1,0 +1,48 @@
+.section5 {
+    height: 300px;
+    width: 1145px;
+    background-image: url("image/banner.webp");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    gap: 15px; 
+    margin-bottom: 100px;
+}
+
+.download-probo-text {
+    color: white;
+    font-size: 20px;
+    letter-spacing: 1px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 10px;
+}
+
+.Discovery-text {
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+
+}
+
+.button {
+    background-color: rgb(38,38,38);
+    color: white;
+    height: 50px;
+    width: 220px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}

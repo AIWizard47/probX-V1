@@ -1,0 +1,16 @@
+.section2{
+    background-color: #33874E;
+    height: 60px;
+   
+    position: absolute;
+    top: 780px;
+    left: 0;
+    right: 0;
+}
+.banner-para{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+
+}

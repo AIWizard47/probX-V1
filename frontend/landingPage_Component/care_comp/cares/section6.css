@@ -1,0 +1,174 @@
+.section6 {
+    background-color: #FFFFFF;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 4460px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 150px;
+}
+
+.membership_FICCI_image1 {
+    height: 90px;
+    margin-left: 30px;
+}
+
+.membership_ASSOCHAM_image1 {
+    margin-right: 30px;
+}
+
+.sec6-img-conatiner1 {
+    margin-top: 60px;
+    margin-bottom: 110px;
+}
+
+.sec6-img-container2 {
+    background-color: #E9F2EA;
+    height: 240px;
+    width: 430px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    position: relative;
+    /* Needed for absolute positioning */
+    overflow: hidden;
+    /* Optional: hides anything spilling outside */
+}
+
+.read_more1-img {
+    margin-top: 55px;
+    margin-left: 65px;
+    display: block;
+}
+
+.open_link-img {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+
+}
+
+.sec6-text-container2 {
+    background-color: white;
+    height: 180px;
+    width: 428px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px solid #E9F2EA;
+}
+.building-text{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 23px;
+    font-weight: lighter;
+    letter-spacing: 2.5px;
+    margin-left: 30px;
+    margin-right: 30px;
+    line-height: 32px;
+}
+.mart-text{
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(86, 86, 86);
+    font-size: 14px;
+    font-weight: lighter;
+    letter-spacing: 1.5px;
+    line-height: 20px;
+    margin: 0;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: -15px;
+}
+.date{
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(86, 86, 86);
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: lighter;
+    letter-spacing: 1.5px;
+    line-height: 19px;
+    margin: 0;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 10px;
+}
+.sec6-img-text-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 40px;
+    margin-bottom: 70px;
+}
+.sec6-img-text-temp-container{
+    margin-left: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.sec6-img-text-temp-container:hover{
+    box-shadow: 0 4px 7px rgb(228, 227, 227);
+}
+.sec6-img-text-container2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+.headline-p{
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(58, 58, 58);
+    font-size: 15px;
+    font-weight: lighter;
+    letter-spacing: 1px;
+    line-height: 25px;
+    margin: 0;
+    margin-left: 30px;
+    margin-right: 30px;
+
+}
+.horse_image2{
+    height: 250px;
+    width: 450px;
+}
+.sec6-img-text-container3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: -25px;
+    margin-right: -25px;
+}
+.sec6-img-text-main-container2{
+    display: flex;
+    flex-direction: row;
+}
+.faq_bg{
+    height: 350px;
+    margin: 0;
+    margin-top: 100px;
+}
+.last-p{
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(86, 86, 86);
+    font-size: 20px;
+
+}
+.need-text{
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(24, 23, 23);
+    font-size: 35px;
+    font-weight: bold;
+    margin: 0;
+}
+.green-button{
+    background-color: white;
+    color: rgb(10, 140, 10);
+    font-size: 20px;
+    font-weight: bold;
+    height: 60px;
+    width: 170px;
+    border: 1px solid rgb(237, 228, 228);
+    border-radius: 11px;
+}

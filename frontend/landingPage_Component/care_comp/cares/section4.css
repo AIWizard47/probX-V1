@@ -1,0 +1,189 @@
+.section4{
+    background-color: #FFFFFF;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 1700px;
+    display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+.Feeling-text{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #262626;
+    font-size: 62px;
+    letter-spacing: 1px;
+    margin: 0;
+    margin-top: 70px;
+    margin-bottom: 10px;
+}
+.rest-text{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #02BD1B;
+    font-size: 62px;
+    letter-spacing: 1px;
+    margin: 0;
+}
+.title1-conatiner{
+    border: 1px solid #EDF7FF;
+    background: linear-gradient(to bottom, white, #edf8fb);
+    width: 310px;
+    height: 350px;
+    display: flex;
+   flex-direction: column;
+   align-items: center;
+   border-radius: 13px;
+   box-shadow: 0 2px 3px rgb(228, 227, 227);
+   margin-right: 15px;
+   margin-bottom: 30px;
+}
+.rest_recharge_tile1-img{
+    height: 130px;
+    width: 135px;
+    margin-top: 30px;
+}
+.take-text{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 19px;
+    letter-spacing: 1.5px;
+    font-weight: bolder;
+    margin: 0;
+    margin-top: 22px;
+}
+.strong-text{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 19px;
+    letter-spacing: 1.5px;
+    font-weight: bolder;
+    margin: 0;
+    margin-top: 7px;
+}
+.blue-button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    color: #1486E5;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 60px;
+    background-color: #EFF8FB;
+}
+.download-blue-img{
+    margin-left: 10px;
+}
+.title-conatiner{
+    display: flex;
+    font-display: row;
+}
+.title2-conatiner{
+    border: 1px solid #EDF7FF;
+    background: linear-gradient(to bottom, #FFFFFF, #FFF5F5);
+    width: 310px;
+    height: 350px;
+    display: flex;
+   flex-direction: column;
+   align-items: center;
+   border-radius: 13px;
+   box-shadow: 0 2px 3px rgb(228, 227, 227);
+   margin-left: 15px;
+}
+.red-button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    color: #EF6969;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 60px;
+    background-color:#FFF5F5;
+}
+.with-text{
+    font-family: Arial, Helvetica, sans-serif;
+    color:  #262626;
+    font-size: 62px;
+    letter-spacing: 1px;
+    margin: 0;
+}
+.skillscore_image1{
+    margin-top: 60px;
+}
+.horse_image{
+    height: 270px;
+    width: 530px;
+    margin: 0;
+    margin-top: 100px;
+}
+.skill-container{
+    border: 1px solid #8bd095;
+    width: 290px;
+    height: 375px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    transition: 0.3s ease;
+}
+.skill-container:hover{
+    border: 1px solid #03b01d;
+    box-shadow: 0 8px 8px rgb(228, 227, 227);
+
+}
+.skill-container:hover .play-button {
+    border: 1px solid #03b01d;
+}
+.skilful_title{
+    margin-top: -30px;
+}
+.first-p{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #262626;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 17px;
+}
+.second-p{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #262626;
+    font-size: 20px;
+    letter-spacing: 1px;
+    margin: 0;
+    margin-bottom: 6px;
+}
+.play-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #262626;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    height: 60px;
+    width: 120px;
+    border-radius: 10px;
+    border: 1px solid rgb(225, 221, 221);
+    background-color: #FFFFFF;
+    margin-top: 30px;
+    transition: 0.3s ease;
+}
+.play-button:hover{
+    cursor: pointer;
+}
+.play-icon-green{
+    margin-left: 5px;
+}
+.all-skills-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}

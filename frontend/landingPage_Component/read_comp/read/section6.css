@@ -1,0 +1,39 @@
+.section6-button-part{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    margin-bottom: 80px;
+    cursor: pointer;
+}
+.Citations{
+    color: white;
+    font-size: 45px;
+    font-weight: lighter;
+    margin: 0;
+    margin-bottom: 10px;
+}
+.Prediction-text{
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 1px;
+    color: white;
+    font-size: 13px;
+    font-weight: lighter;
+    margin: 0;
+}
+.news{
+    height: 209px;
+    width: 360px;
+    margin-bottom: -3px;
+}
+.first-p{
+    color: white;
+    font-size: 20px;
+    font-weight: lighter;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+.text-part{
+    height: 170px;
+    width: 360px;
+    border: 0.2px solid rgb(119, 118, 118);
+}
