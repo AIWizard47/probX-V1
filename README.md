@@ -61,6 +61,10 @@ The platform features a three-tier architecture:
 
 ## 📸 Screenshots
 
+### 🏠 Landing Page
+
+![Landing Page](./frontend/public/readme/landingPage.png)
+
 ### 🏠 Home Page
 
 ![Home Page](./frontend/public/readme/homePage.png)
