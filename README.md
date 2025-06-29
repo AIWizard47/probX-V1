@@ -1,6 +1,3 @@
-
-
-
 <div align="left" style="position: relative;">
 <img src="https://img.icons8.com/?size=512&id=55494&format=png" align="right" width="30%" style="margin: -20px 0 0 20px;">
 <h1>PROBX-V1</h1>
@@ -24,6 +21,7 @@
 ## 📍 Overview
 
 PROBX-V1 is a prediction market platform where users can:
+
 - Trade shares of event outcomes (like sports matches, elections, etc.)
 - Buy/Sell contracts at dynamic market prices
 - View real-time order books and price charts
@@ -31,6 +29,7 @@ PROBX-V1 is a prediction market platform where users can:
 - Exit positions at any time with limit/market orders
 
 The platform features a three-tier architecture:
+
 1. **Frontend**: React-based trading interface
 2. **Backend**: Node.js API with Prisma ORM
 3. **Admin Panel**: For market management
@@ -38,6 +37,7 @@ The platform features a three-tier architecture:
 ## 👾 Core Features
 
 ### Trading Engine
+
 - **Order Matching System**: First-in-first-out (FIFO) matching algorithm
 - **Order Types**:
   - Market orders (immediate execution)
@@ -47,15 +47,39 @@ The platform features a three-tier architecture:
 - **Price Prediction**: Algorithmic price forecasting
 
 ### User Experience
+
 - **Portfolio Dashboard**: Track positions, P&L, and balance
 - **Event Pages**: Detailed market information and charts
 - **Responsive Design**: Mobile-friendly trading interface
 - **Authentication**: Secure JWT-based login system
 
 ### Admin Features
+
 - Event creation and management
 - Market resolution and settlement
 - User management and analytics
+
+## 📸 Screenshots
+
+### 🏠 Home Page
+
+![Home Page](./frontend/public/readme/homePage.png)
+
+### 🔐 Auth Page
+
+![Dashboard](./frontend/public/readme/authPage.png)
+
+### 📋 Event Page
+
+![Login Page](./frontend/public/readme/eventPage.png)
+
+### Portfolio Page
+
+![Portfolio Page](./frontend/public/readme/portfolioPage.png)
+
+### Probability Page
+
+![Probability Page](./frontend/public/readme/probability.png)
 
 </p>
 <p align="left">
@@ -182,8 +206,8 @@ The platform features a three-tier architecture:
         └── vite.config.js
 ```
 
-
 ### 📂 Project Index
+
 <details open>
 	<summary><b><code>PROBX-V1/</code></b></summary>
 	<details> <!-- __root__ Submodule -->
@@ -1268,6 +1292,7 @@ The platform features a three-tier architecture:
 </details>
 
 ---
+
 ## 🚀 Getting Started
 
 ### ☑️ Prerequisites
@@ -1277,7 +1302,6 @@ Before getting started with probX-V1, ensure your runtime environment meets the 
 - **Programming Language:** JavaScript
 - **Package Manager:** Npm
 
-
 ### ⚙️ Installation
 
 Install probX-V1 using one of the following methods:
@@ -1285,17 +1309,18 @@ Install probX-V1 using one of the following methods:
 **Build from source:**
 
 1. Clone the probX-V1 repository:
+
 ```sh
 ❯ git clone https://github.com/Banti4750/probX-V1
 ```
 
 2. Navigate to the project directory:
+
 ```sh
 ❯ cd probX-V1
 ```
 
 3. Install the project dependencies:
-
 
 **Using `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
 
@@ -1303,10 +1328,8 @@ Install probX-V1 using one of the following methods:
 ❯ npm install
 ```
 
-
-
-
 ### 🤖 Usage
+
 Run probX-V1 using the following command:
 **Using `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
 
@@ -1314,8 +1337,8 @@ Run probX-V1 using the following command:
 ❯ npm start
 ```
 
-
 ### 🧪 Testing
+
 Run the test suite using the following command:
 **Using `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
 
@@ -1323,11 +1346,11 @@ Run the test suite using the following command:
 ❯ npm test
 ```
 
-
 ---
+
 ## 📌 Project Roadmap
 
-- [X] **`Task 1`**: <strike>Implement feature one.</strike>
+- [x] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.
 - [ ] **`Task 3`**: Implement feature three.
 
