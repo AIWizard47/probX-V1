@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Settings, RotateCcw, RefreshCw } from 'lucide-react';
 
-const SingleEventChart = ({ eventId = 23 }) => {
+const SingleEventChart = ({ eventId  }) => {
   const [activeTab, setActiveTab] = useState('All');
   const [eventData, setEventData] = useState(null);
   const [filteredChartData, setFilteredChartData] = useState([]);

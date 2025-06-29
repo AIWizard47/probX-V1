@@ -1,4 +1,5 @@
 import { prisma } from '../../db/db.js';
+import { matchOrder } from '../../utils/matchOrder.js';
 
 export const getAllEvents = async (req, res) => {
     try {
@@ -29,11 +30,44 @@ export const getEventById = async (req, res) => {
 
 
 // create event
+// export const addEvent = async (req, res) => {
+//     const { eventTitle, cratedTime, startTime, endTime, eventLogo, details, categary, description } = req.body;
+//     if (!eventLogo || !eventTitle || !cratedTime || !startTime || !details || !endTime || !eventLogo || !categary) {
+//         return res.status(400).json({ message: "All field required" });
+//     }
+//     try {
+//         const event = await prisma.event.create({
+//             data: {
+//                 eventTitle,
+//                 cratedTime,
+//                 startTime,
+//                 endTime,
+//                 eventLogo,
+//                 categary,
+//                 description,
+//                 details
+//             }
+
+//         })
+//         console.log(event.id);
+
+//         return res.status(200).json({ message: "event created", event });
+//     } catch (error) {
+//         console.error(error);
+//         return res.status(500).json({ message: "Something went wrong" });
+//     }
+// }
+
 export const addEvent = async (req, res) => {
-    const { eventTitle, cratedTime, startTime, endTime, eventLogo, details, categary, description } = req.body;
-    if (!eventLogo || !eventTitle || !cratedTime || !startTime || !details || !endTime || !eventLogo || !categary) {
-        return res.status(400).json({ message: "All field required" });
+    const {
+        eventTitle, cratedTime, startTime, endTime,
+        eventLogo, details, categary, description
+    } = req.body;
+
+    if (!eventLogo || !eventTitle || !cratedTime || !startTime || !details || !endTime || !categary) {
+        return res.status(400).json({ message: "All fields required" });
     }
+
     try {
         const event = await prisma.event.create({
             data: {
@@ -46,15 +80,130 @@ export const addEvent = async (req, res) => {
                 description,
                 details
             }
+        });
 
-        })
+        console.log("Created Event ID:", event.id);
 
-        return res.status(200).json({ message: "event created", event });
+        // ✅ SYSTEM USER ID (should be constant or env variable)
+        const SYSTEM_USER_ID = 10;
+
+        // Auto-seed SELL orders for both "YES" and "NO"
+        const seedOrders = [
+            { price: 5, quantity: 10, orderType: "SELL", tradeType: "YES", eventId: event.id },
+            { price: 5, quantity: 10, orderType: "SELL", tradeType: "NO", eventId: event.id },
+        ];
+
+        for (const order of seedOrders) {
+            // Call the existing matchOrder logic inside a transaction manually
+            await prisma.$transaction(async (tx) => {
+                const incomingOrder = { ...order, userId: SYSTEM_USER_ID };
+
+                const matchResult = await matchOrder(incomingOrder, tx);
+                const { matches, remainingQty } = matchResult;
+                const filledQty = order.quantity - remainingQty;
+
+                let createdTradeId = null;
+
+                // Create trade records
+                for (const match of matches) {
+                    const trade = await tx.trade.create({
+                        data: {
+                            tradeTitle: `${order.tradeType} ${order.orderType} on Event ${order.eventId}`,
+                            price: match.tradePrice,
+                            quantity: match.fillQty,
+                            tradeLogo: event.eventLogo || "",
+                            orderType: order.orderType,
+                            yesPrice: event.yesPrice,
+                            noPrice: event.noPrice,
+                            tradeType: order.tradeType,
+                            category: event.categary || event.category || "Unknown",
+                            userId: SYSTEM_USER_ID,
+                            eventId: order.eventId,
+                        }
+                    });
+
+                    if (matches.length === 1) createdTradeId = trade.id;
+
+                    await tx.prediction.createMany({
+                        data: [
+                            {
+                                userId: match.takerId,
+                                tradeId: trade.id,
+                                eventId: order.eventId,
+                                price: match.tradePrice,
+                                quantity: match.fillQty,
+                                orderType: order.orderType,
+                                prediction: order.tradeType,
+                            },
+                            {
+                                userId: match.makerId,
+                                tradeId: trade.id,
+                                eventId: order.eventId,
+                                price: match.tradePrice,
+                                quantity: match.fillQty,
+                                orderType: order.orderType === "BUY" ? "SELL" : "BUY",
+                                prediction: order.tradeType,
+                            },
+                        ]
+                    });
+                }
+
+                // Create order(s) based on match
+                if (remainingQty === 0) {
+                    await tx.order.create({
+                        data: {
+                            price: order.price,
+                            quantity: order.quantity,
+                            filledQty: order.quantity,
+                            orderType: order.orderType,
+                            tradeType: order.tradeType,
+                            status: "FULFILLED",
+                            eventId: order.eventId,
+                            userId: SYSTEM_USER_ID,
+                            tradeId: createdTradeId
+                        }
+                    });
+                } else {
+                    await tx.order.create({
+                        data: {
+                            price: order.price,
+                            quantity: remainingQty,
+                            filledQty: 0,
+                            orderType: order.orderType,
+                            tradeType: order.tradeType,
+                            status: "OPEN",
+                            eventId: order.eventId,
+                            userId: SYSTEM_USER_ID
+                        }
+                    });
+
+                    if (filledQty > 0) {
+                        const partialData = {
+                            price: order.price,
+                            quantity: filledQty,
+                            filledQty: filledQty,
+                            orderType: order.orderType,
+                            tradeType: order.tradeType,
+                            status: "PARTIAL",
+                            eventId: order.eventId,
+                            userId: SYSTEM_USER_ID,
+                        };
+
+                        if (createdTradeId) partialData.tradeId = createdTradeId;
+
+                        await tx.order.create({ data: partialData });
+                    }
+                }
+            });
+        }
+
+        return res.status(200).json({ message: "Event created and seeded with initial trades", event });
+
     } catch (error) {
-        console.error(error);
+        console.error("Error creating event:", error);
         return res.status(500).json({ message: "Something went wrong" });
     }
-}
+};
 
 
 // Update event

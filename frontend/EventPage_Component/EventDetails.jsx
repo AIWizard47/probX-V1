@@ -69,7 +69,7 @@ const EventDetails = ({ id }) => {
       </div>
 
       <OrderBook eventId={id}/>
-      <ProbabilityChart/>
+      <ProbabilityChart eventId={id}/>
 
       <div>
         <div className="bg-white p-10 rounded-xl shadow-md my-16 mx-auto text-gray-800">
